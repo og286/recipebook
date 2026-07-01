@@ -14,10 +14,18 @@ const categories = [
     desc: 'All around 480–500 kcal. Simple, repeatable, and quick to prepare before work.' },
   { id: 'lunch',     label: 'Lunch',          eyebrow: 'Midday meals',    title: 'Lunches',
     desc: 'Rotating across the week. Jon and Jo have different portion sizes — portions are shown separately on each recipe.' },
+  { id: 'dinner',    label: 'Dinner',         eyebrow: 'Evening meals',   title: 'Dinners',
+    desc: 'Cooked as a full dish and portioned out afterwards — check the tip on each recipe for the gram weight that hits your calorie target.' },
   { id: 'smoothie',  label: 'Smoothie',       eyebrow: 'Daily drink',     title: 'Smoothie',
     desc: 'Your everyday breakfast. 2/3 of the original recipe — same for both Jon and Jo.' },
   { id: 'treat',     label: 'Weekend Treat',  eyebrow: 'Weekend treat',   title: 'Weekend Treat',
     desc: 'For when you want something more indulgent. Still calorie-tracked so you know where you stand.' },
+  { id: 'sides',     label: 'Sides & Snacks', eyebrow: 'Extras',          title: 'Sides & Snacks',
+    desc: 'Dips and extras that aren\'t a meal on their own — shown per 100g so you can portion them against whatever they\'re served with.' },
+  { id: 'basics',    label: 'Basics',         eyebrow: 'Building blocks', title: 'Basics',
+    desc: 'Doughs, sauces and other components that aren\'t a meal by themselves — combine with toppings or other recipes to build a full dish.' },
+  { id: 'baking',    label: 'Baking',         eyebrow: 'Cakes & bakes',   title: 'Baking',
+    desc: 'Cakes, pastries and baked treats — occasional bakes rather than everyday eating, but calorie-tracked all the same.' },
 ];
 
 function recipesFor(catId) {
@@ -106,7 +114,7 @@ function drawerContentHTML(r) {
     ${ingredientsTableHTML(r)}
     <div class="drawer-section-title">Method</div>
     ${stepsHTML(r)}
-    ${r.dressing ? `<div class="dressing-box"><strong>Dressing</strong>${r.dressing}</div>` : ''}
+    ${r.dressing ? `<div class="dressing-box"><strong>${r.dressingLabel || 'Dressing'}</strong>${r.dressing}</div>` : ''}
     ${r.tip ? `<div class="tip-box">${r.tip}</div>` : ''}
   `;
 }
