@@ -1,0 +1,652 @@
+[
+  {
+    "id": "smoothie",
+    "category": "smoothie",
+    "colour": "#0C447C",
+    "title": "Raspberry Peanut Butter Smoothie",
+    "subtitle": "Daily breakfast",
+    "desc": "Your go-to weekday breakfast. 2/3 of the original recipe — blended and ready in 2 minutes.",
+    "badges": [
+      "badge-quick"
+    ],
+    "badgeLabels": [
+      "2 mins"
+    ],
+    "kcal": {
+      "both": "~455 kcal"
+    },
+    "ingredients": [
+      {
+        "name": "Almond milk, unsweetened",
+        "note": "",
+        "jon": "140ml",
+        "jo": null
+      },
+      {
+        "name": "Raspberries, fresh/frozen",
+        "note": "",
+        "jon": "70g",
+        "jo": null
+      },
+      {
+        "name": "Rolled oats",
+        "note": "",
+        "jon": "20g",
+        "jo": null
+      },
+      {
+        "name": "Greek yoghurt",
+        "note": "low-fat",
+        "jon": "87g",
+        "jo": null
+      },
+      {
+        "name": "Vanilla protein powder",
+        "note": "",
+        "jon": "27g",
+        "jo": null
+      },
+      {
+        "name": "Peanut butter",
+        "note": "",
+        "jon": "20g",
+        "jo": null
+      },
+      {
+        "name": "Ice",
+        "note": "optional",
+        "jon": "handful",
+        "jo": null
+      }
+    ],
+    "steps": [
+      "Add all ingredients to a blender.",
+      "Blend on high for 30–45 seconds until completely smooth.",
+      "Taste — add a little honey if you want more sweetness.",
+      "Pour and drink immediately, or seal in a flask for up to 4 hours."
+    ],
+    "tip": "<strong>Running low on protein powder?</strong> Add an extra teaspoon of peanut butter per 5g of powder you're short to keep the calories roughly the same."
+  },
+  {
+    "id": "overnight-oats",
+    "category": "breakfast",
+    "colour": "#5A7A5E",
+    "title": "Overnight Oats",
+    "subtitle": "Breakfast",
+    "desc": "Prep on Sunday night, grab from the fridge all week. Your smoothie ingredients in a jar.",
+    "badges": [
+      "badge-batch",
+      "badge-nocook"
+    ],
+    "badgeLabels": [
+      "Batch prep",
+      "No morning cook"
+    ],
+    "kcal": {
+      "both": "~480 kcal"
+    },
+    "ingredients": [
+      {
+        "name": "Rolled oats",
+        "note": "",
+        "jon": "60g",
+        "jo": null
+      },
+      {
+        "name": "Almond milk",
+        "note": "unsweetened",
+        "jon": "150ml",
+        "jo": null
+      },
+      {
+        "name": "Greek yoghurt",
+        "note": "low-fat",
+        "jon": "100g",
+        "jo": null
+      },
+      {
+        "name": "Peanut butter",
+        "note": "",
+        "jon": "1 tbsp",
+        "jo": null
+      },
+      {
+        "name": "Mixed berries",
+        "note": "fresh/frozen",
+        "jon": "handful",
+        "jo": null
+      },
+      {
+        "name": "Honey",
+        "note": "optional",
+        "jon": "drizzle",
+        "jo": null
+      }
+    ],
+    "steps": [
+      "Combine oats, almond milk and yoghurt in a jar or container. Stir well.",
+      "Swirl the peanut butter in — don't mix fully, you want a ripple effect.",
+      "Seal and refrigerate overnight (or up to 3 days).",
+      "In the morning, top with berries and a drizzle of honey. Eat cold."
+    ],
+    "tip": "<strong>Batch tip:</strong> Make 5 jars on Sunday evening. They keep well in the fridge until Friday."
+  },
+  {
+    "id": "granola",
+    "category": "breakfast",
+    "colour": "#D4820A",
+    "title": "Granola with Yoghurt & Fruit",
+    "subtitle": "Breakfast",
+    "desc": "No prep at all — just assemble. Watch the granola brand: calorie counts vary widely.",
+    "badges": [
+      "badge-quick",
+      "badge-nocook"
+    ],
+    "badgeLabels": [
+      "2 mins",
+      "No cook"
+    ],
+    "kcal": {
+      "both": "~480 kcal"
+    },
+    "ingredients": [
+      {
+        "name": "Granola",
+        "note": "good quality",
+        "jon": "60g",
+        "jo": null
+      },
+      {
+        "name": "Greek yoghurt",
+        "note": "low-fat",
+        "jon": "200g",
+        "jo": null
+      },
+      {
+        "name": "Mixed berries",
+        "note": "fresh/frozen",
+        "jon": "100g",
+        "jo": null
+      }
+    ],
+    "steps": [
+      "Spoon Greek yoghurt into a bowl.",
+      "Add berries on top.",
+      "Sprinkle granola over just before eating — keeps it crunchy."
+    ],
+    "tip": "<strong>Granola warning:</strong> Check the label before buying. Some granola runs to 480+ kcal per 100g. Aim for under 420 kcal/100g and measure to 60g."
+  },
+  {
+    "id": "avocado-toast",
+    "category": "breakfast",
+    "colour": "#3D6B44",
+    "title": "Avocado on Toast",
+    "subtitle": "Breakfast",
+    "desc": "Two slices, a whole avocado, and five minutes. High in healthy fats and genuinely filling.",
+    "badges": [
+      "badge-quick"
+    ],
+    "badgeLabels": [
+      "5 mins"
+    ],
+    "kcal": {
+      "both": "~490 kcal"
+    },
+    "ingredients": [
+      {
+        "name": "Wholegrain bread",
+        "note": "2 slices",
+        "jon": "2 slices",
+        "jo": null
+      },
+      {
+        "name": "Ripe avocado",
+        "note": "whole",
+        "jon": "150g",
+        "jo": null
+      },
+      {
+        "name": "Lemon juice",
+        "note": "",
+        "jon": "squeeze",
+        "jo": null
+      },
+      {
+        "name": "Chilli flakes",
+        "note": "optional",
+        "jon": "pinch",
+        "jo": null
+      },
+      {
+        "name": "Salt & pepper",
+        "note": "",
+        "jon": "to taste",
+        "jo": null
+      }
+    ],
+    "steps": [
+      "Toast the bread to your liking.",
+      "Halve and stone the avocado. Scoop flesh into a bowl.",
+      "Add lemon juice, salt and pepper. Mash with a fork — keep it chunky.",
+      "Spread generously over toast. Finish with chilli flakes."
+    ],
+    "tip": "<strong>Ripe avocado test:</strong> Gently press the skin near the stem — it should give slightly. A hard avocado needs 1–2 days on the windowsill."
+  },
+  {
+    "id": "porridge",
+    "category": "breakfast",
+    "colour": "#8B6914",
+    "title": "Porridge with Peanut Butter",
+    "subtitle": "Breakfast",
+    "desc": "Warm, sustaining, and ideal after a morning gym session. The peanut butter makes it genuinely satisfying.",
+    "badges": [
+      "badge-quick"
+    ],
+    "badgeLabels": [
+      "8 mins"
+    ],
+    "kcal": {
+      "both": "~500 kcal"
+    },
+    "ingredients": [
+      {
+        "name": "Rolled oats",
+        "note": "",
+        "jon": "70g",
+        "jo": null
+      },
+      {
+        "name": "Semi-skimmed milk",
+        "note": "or almond milk",
+        "jon": "300ml",
+        "jo": null
+      },
+      {
+        "name": "Peanut butter",
+        "note": "",
+        "jon": "1 tbsp",
+        "jo": null
+      },
+      {
+        "name": "Banana",
+        "note": "sliced",
+        "jon": "½",
+        "jo": null
+      },
+      {
+        "name": "Honey",
+        "note": "optional",
+        "jon": "drizzle",
+        "jo": null
+      }
+    ],
+    "steps": [
+      "Combine oats and milk in a saucepan over medium heat.",
+      "Stir constantly for 4–5 minutes until thick and creamy.",
+      "Remove from heat. Stir in peanut butter until melted through.",
+      "Pour into a bowl. Top with sliced banana and a drizzle of honey."
+    ],
+    "tip": "<strong>Microwave version:</strong> Oats + milk in a deep bowl, 2.5 mins on high, stir halfway. Stir in peanut butter afterwards."
+  },
+  {
+    "id": "chicken-rice",
+    "category": "lunch",
+    "colour": "#8B2B1A",
+    "title": "Chicken & Rice Bowl",
+    "subtitle": "Lunch — Mon / Wed / Fri",
+    "desc": "Batch cook on Sunday. Five containers each, ready to grab and reheat in 3 minutes all week.",
+    "badges": [
+      "badge-batch"
+    ],
+    "badgeLabels": [
+      "Batch cook Sunday"
+    ],
+    "kcal": {
+      "jon": "~500 kcal",
+      "jo": "~355 kcal"
+    },
+    "ingredients": [
+      {
+        "name": "Chicken breast, cooked",
+        "note": "",
+        "jon": "150g",
+        "jo": "100g"
+      },
+      {
+        "name": "Basmati rice, cooked",
+        "note": "",
+        "jon": "150g",
+        "jo": "100g"
+      },
+      {
+        "name": "Baby spinach",
+        "note": "",
+        "jon": "large handful",
+        "jo": null
+      },
+      {
+        "name": "Cherry tomatoes",
+        "note": "",
+        "jon": "80g",
+        "jo": null
+      },
+      {
+        "name": "Cucumber, sliced",
+        "note": "",
+        "jon": "60g",
+        "jo": null
+      },
+      {
+        "name": "Greek yoghurt",
+        "note": "dressing",
+        "jon": "1 tbsp",
+        "jo": null
+      },
+      {
+        "name": "Lemon juice",
+        "note": "",
+        "jon": "squeeze",
+        "jo": null
+      }
+    ],
+    "steps": [
+      "Season chicken with salt, pepper and garlic powder. Bake at 200°C for 22–25 mins or pan fry. Rest then slice.",
+      "Cook rice, drain and cool completely before portioning.",
+      "Divide into labelled containers — Jon's are bigger. Add veg on the day to avoid sogginess.",
+      "Mix yoghurt and lemon juice in a small pot separately. Add at lunchtime."
+    ],
+    "tip": "<strong>Label your containers.</strong> Jon's portions are noticeably larger — worth marking them on Sunday."
+  },
+  {
+    "id": "greek-salad",
+    "category": "lunch",
+    "colour": "#1D6B47",
+    "title": "Greek Salad",
+    "subtitle": "Lunch — Tue / Thu option A",
+    "desc": "No cooking needed. Prep takes 5 minutes. A proper Greek salad with a warm pitta.",
+    "badges": [
+      "badge-nocook"
+    ],
+    "badgeLabels": [
+      "No cook"
+    ],
+    "kcal": {
+      "jon": "~527 kcal",
+      "jo": "~488 kcal"
+    },
+    "ingredients": [
+      {
+        "name": "Feta cheese, cubed",
+        "note": "",
+        "jon": "75g",
+        "jo": "60g"
+      },
+      {
+        "name": "Kalamata olives",
+        "note": "",
+        "jon": "40g",
+        "jo": "30g"
+      },
+      {
+        "name": "Olive oil",
+        "note": "",
+        "jon": "1 tsp",
+        "jo": "½ tsp"
+      },
+      {
+        "name": "Cucumber",
+        "note": "chunks",
+        "jon": "100g",
+        "jo": null
+      },
+      {
+        "name": "Cherry tomatoes, halved",
+        "note": "",
+        "jon": "100g",
+        "jo": null
+      },
+      {
+        "name": "Red onion, thin sliced",
+        "note": "",
+        "jon": "30g",
+        "jo": null
+      },
+      {
+        "name": "Green pepper, sliced",
+        "note": "",
+        "jon": "60g",
+        "jo": null
+      },
+      {
+        "name": "Wholegrain pitta",
+        "note": "small",
+        "jon": "1",
+        "jo": null
+      },
+      {
+        "name": "Dried oregano",
+        "note": "",
+        "jon": "to taste",
+        "jo": null
+      },
+      {
+        "name": "Lemon juice",
+        "note": "",
+        "jon": "squeeze",
+        "jo": null
+      }
+    ],
+    "steps": [
+      "Chop cucumber into chunks, halve the tomatoes, slice onion and pepper thinly.",
+      "Arrange all veg in a bowl or container.",
+      "Add cubed feta and olives on top.",
+      "Drizzle with olive oil and lemon juice. Season with oregano, salt and pepper.",
+      "Serve with a warm wholegrain pitta."
+    ],
+    "tip": "<strong>No-pitta option:</strong> Skip the pitta to save ~140 kcal — brings Jon to ~387 kcal and Jo to ~348 kcal, leaving more room for the evening meal."
+  },
+  {
+    "id": "nicoise",
+    "category": "lunch",
+    "colour": "#1D5C7A",
+    "title": "Salade Niçoise",
+    "subtitle": "Lunch — Tue / Thu option B",
+    "desc": "A proper French classic. Tuna and eggs make it genuinely filling — lighter than the Greek salad without the pitta.",
+    "badges": [
+      "badge-nocook"
+    ],
+    "badgeLabels": [
+      "Eggs boil Sunday"
+    ],
+    "kcal": {
+      "jon": "~415 kcal",
+      "jo": "~397 kcal"
+    },
+    "ingredients": [
+      {
+        "name": "Tuna in spring water",
+        "note": "drained",
+        "jon": "145g tin",
+        "jo": null
+      },
+      {
+        "name": "Boiled eggs, halved",
+        "note": "8 min boil",
+        "jon": "2",
+        "jo": null
+      },
+      {
+        "name": "Green beans, blanched",
+        "note": "3–4 mins",
+        "jon": "100g",
+        "jo": null
+      },
+      {
+        "name": "Cherry tomatoes, halved",
+        "note": "",
+        "jon": "100g",
+        "jo": null
+      },
+      {
+        "name": "Little gem / mixed leaves",
+        "note": "",
+        "jon": "generous",
+        "jo": null
+      },
+      {
+        "name": "Kalamata olives",
+        "note": "",
+        "jon": "30g",
+        "jo": null
+      },
+      {
+        "name": "Cucumber or radishes",
+        "note": "",
+        "jon": "60g",
+        "jo": null
+      },
+      {
+        "name": "Red onion, thin sliced",
+        "note": "",
+        "jon": "20g",
+        "jo": null
+      }
+    ],
+    "steps": [
+      "Boil eggs for 8 minutes for a just-set yolk. Cool in cold water, peel and halve.",
+      "Blanch green beans in boiling water for 3–4 mins. Drain and run under cold water.",
+      "Make the dressing: whisk together olive oil, red wine vinegar, Dijon mustard, crushed garlic, salt and pepper.",
+      "Arrange leaves on a plate. Add beans, tomatoes, cucumber and onion.",
+      "Top with flaked tuna, egg halves and olives. Drizzle with dressing."
+    ],
+    "dressing": "1 tsp olive oil  •  1 tsp red wine vinegar  •  ½ tsp Dijon mustard  •  1 small garlic clove, crushed  •  salt & pepper",
+    "tip": "<strong>Batch tip:</strong> Boil a full batch of eggs on Sunday — they keep unpeeled in the fridge for 5 days. Add a small pitta for ~+140 kcal if needed."
+  },
+  {
+    "id": "halloumi",
+    "category": "lunch",
+    "colour": "#5C3D89",
+    "title": "Halloumi & Roasted Pepper Salad",
+    "subtitle": "Lunch — occasional swap",
+    "desc": "Griddled halloumi on a bed of spinach and roasted peppers. Warm, satisfying and ready in 10 minutes.",
+    "badges": [
+      "badge-quick"
+    ],
+    "badgeLabels": [
+      "10 mins — cook fresh"
+    ],
+    "kcal": {
+      "jon": "~480 kcal",
+      "jo": "~390 kcal"
+    },
+    "ingredients": [
+      {
+        "name": "Halloumi",
+        "note": "sliced 1cm",
+        "jon": "80g",
+        "jo": "65g"
+      },
+      {
+        "name": "Roasted peppers (jar)",
+        "note": "drained",
+        "jon": "80g",
+        "jo": null
+      },
+      {
+        "name": "Baby spinach",
+        "note": "",
+        "jon": "generous",
+        "jo": null
+      },
+      {
+        "name": "Kalamata olives",
+        "note": "",
+        "jon": "30g",
+        "jo": null
+      },
+      {
+        "name": "Lemon juice",
+        "note": "",
+        "jon": "squeeze",
+        "jo": null
+      },
+      {
+        "name": "Olive oil spray",
+        "note": "for griddle",
+        "jon": "spray",
+        "jo": null
+      }
+    ],
+    "steps": [
+      "Pat halloumi slices dry with kitchen paper.",
+      "Heat a non-stick griddle or frying pan over high heat. Spray lightly with olive oil.",
+      "Griddle halloumi 1.5–2 mins each side until golden and charred. Do not move it while cooking.",
+      "Arrange spinach and roasted peppers on a plate. Add olives.",
+      "Lay hot halloumi on top. Squeeze over lemon juice and serve immediately."
+    ],
+    "tip": "<strong>Don't fry in oil</strong> — halloumi absorbs it instantly and the calories rocket. A dry or lightly sprayed pan gives a better crust anyway."
+  },
+  {
+    "id": "fried-breakfast",
+    "category": "treat",
+    "colour": "#8B2252",
+    "title": "The Lean Fry-Up",
+    "subtitle": "Weekend treat",
+    "desc": "All the satisfaction of a fried breakfast, calorie-counted so you know exactly where you stand.",
+    "badges": [
+      "badge-quick"
+    ],
+    "badgeLabels": [
+      "20 mins"
+    ],
+    "kcal": {
+      "both": "~500 kcal"
+    },
+    "ingredients": [
+      {
+        "name": "Back bacon",
+        "note": "fat trimmed",
+        "jon": "2 rashers",
+        "jo": null
+      },
+      {
+        "name": "Eggs",
+        "note": "fried — spray",
+        "jon": "2",
+        "jo": null
+      },
+      {
+        "name": "Reduced fat sausages",
+        "note": "grilled",
+        "jon": "2",
+        "jo": null
+      },
+      {
+        "name": "Tomato, halved",
+        "note": "grilled",
+        "jon": "1 large",
+        "jo": null
+      },
+      {
+        "name": "Baked beans",
+        "note": "",
+        "jon": "80g",
+        "jo": null
+      },
+      {
+        "name": "Olive oil spray",
+        "note": "eggs only",
+        "jon": "spray",
+        "jo": null
+      }
+    ],
+    "steps": [
+      "Grill sausages and halved tomato under a medium-high grill for 12–15 mins, turning sausages halfway.",
+      "Grill bacon for 3–4 mins each side until cooked through.",
+      "Spray a non-stick pan with olive oil. Fry eggs over medium heat to your liking.",
+      "Warm baked beans in a small saucepan or microwave.",
+      "Plate everything up and serve immediately."
+    ],
+    "tip": "<strong>Swap one sausage for mushrooms</strong> (~10 kcal per 80g) to drop to ~470 kcal and free up room for a small slice of wholegrain toast (~80 kcal)."
+  }
+]
