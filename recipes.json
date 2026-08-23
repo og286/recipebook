@@ -116,7 +116,9 @@
     "kcalPer100g": 123,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "1 glass",
+    "plate500": null
   },
   {
     "id": "overnight-oats",
@@ -228,7 +230,9 @@
     "kcalPer100g": 143,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "1 jar",
+    "plate500": null
   },
   {
     "id": "granola",
@@ -308,7 +312,9 @@
     "kcalPer100g": 133,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "1 bowl",
+    "plate500": null
   },
   {
     "id": "avocado-toast",
@@ -405,7 +411,9 @@
     "kcalPer100g": 208,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "2 slices",
+    "plate500": null
   },
   {
     "id": "porridge",
@@ -504,7 +512,9 @@
     "kcalPer100g": 114,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "1 bowl",
+    "plate500": null
   },
   {
     "id": "chicken-rice",
@@ -625,9 +635,10 @@
     "totalKcal": 2500,
     "cookedWeightG": 500,
     "kcalPer100g": 500,
-    "serveBy": "count",
-    "gramsPer500kcal": null,
-    "weightEstimated": true
+    "serveBy": "weight",
+    "gramsPer500kcal": 100,
+    "weightEstimated": true,
+    "plate500": null
   },
   {
     "id": "greek-salad",
@@ -782,7 +793,9 @@
     "kcalPer100g": 111,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "1 bowl",
+    "plate500": null
   },
   {
     "id": "nicoise",
@@ -918,7 +931,9 @@
     "kcalPer100g": 69,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "1 bowl",
+    "plate500": null
   },
   {
     "id": "halloumi",
@@ -1030,7 +1045,9 @@
     "kcalPer100g": 200,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "1 plate",
+    "plate500": null
   },
   {
     "id": "fried-breakfast",
@@ -1142,7 +1159,9 @@
     "kcalPer100g": 115,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "1 plate",
+    "plate500": null
   },
   {
     "id": "macaroni-cheese",
@@ -1255,8 +1274,9 @@
     "cookedWeightG": 1550,
     "kcalPer100g": 187,
     "serveBy": "weight",
-    "gramsPer500kcal": 267,
-    "weightEstimated": false
+    "gramsPer500kcal": 265,
+    "weightEstimated": false,
+    "plate500": null
   },
   {
     "id": "hummus",
@@ -1622,8 +1642,9 @@
     "cookedWeightG": 1758,
     "kcalPer100g": 20,
     "serveBy": "weight",
-    "gramsPer500kcal": 2526,
-    "weightEstimated": true
+    "gramsPer500kcal": 2525,
+    "weightEstimated": true,
+    "plate500": null
   },
   {
     "id": "pizza-dough",
@@ -1865,7 +1886,9 @@
     "kcalPer100g": 154,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "2 skewers + dip",
+    "plate500": null
   },
   {
     "id": "chicken-satay-peanut-sauce",
@@ -2089,7 +2112,9 @@
     "kcalPer100g": 221,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "3 skewers + sauce",
+    "plate500": null
   },
   {
     "id": "creamy-garlic-chicken",
@@ -2272,8 +2297,9 @@
     "cookedWeightG": 1574,
     "kcalPer100g": 180,
     "serveBy": "weight",
-    "gramsPer500kcal": 277,
-    "weightEstimated": true
+    "gramsPer500kcal": 275,
+    "weightEstimated": true,
+    "plate500": null
   },
   {
     "id": "chicken-leek-pie",
@@ -2471,9 +2497,11 @@
     "totalKcal": 4400,
     "cookedWeightG": 1910,
     "kcalPer100g": 230,
-    "serveBy": "weight",
+    "serveBy": "count",
     "gramsPer500kcal": 217,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "1 wedge",
+    "plate500": null
   },
   {
     "id": "jambalaya",
@@ -2626,8 +2654,9 @@
     "cookedWeightG": 1785,
     "kcalPer100g": 113,
     "serveBy": "weight",
-    "gramsPer500kcal": 442,
-    "weightEstimated": true
+    "gramsPer500kcal": 440,
+    "weightEstimated": true,
+    "plate500": null
   },
   {
     "id": "mushroom-sauce-steak",
@@ -2989,7 +3018,9 @@
     "kcalPer100g": 294,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "1 burger",
+    "plate500": null
   },
   {
     "id": "chicken-bacon-pasta",
@@ -3169,7 +3200,8 @@
     "kcalPer100g": 196,
     "serveBy": "weight",
     "gramsPer500kcal": 255,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "plate500": null
   },
   {
     "id": "ultra-simple-curry",
@@ -3356,8 +3388,9 @@
     "cookedWeightG": 761,
     "kcalPer100g": 166,
     "serveBy": "weight",
-    "gramsPer500kcal": 302,
-    "weightEstimated": true
+    "gramsPer500kcal": 300,
+    "weightEstimated": true,
+    "plate500": null
   },
   {
     "id": "dhal",
@@ -3516,8 +3549,9 @@
     "cookedWeightG": 1675,
     "kcalPer100g": 116,
     "serveBy": "weight",
-    "gramsPer500kcal": 431,
-    "weightEstimated": false
+    "gramsPer500kcal": 430,
+    "weightEstimated": false,
+    "plate500": null
   },
   {
     "id": "prawn-pea-risotto",
@@ -3677,8 +3711,9 @@
     "cookedWeightG": 1392,
     "kcalPer100g": 184,
     "serveBy": "weight",
-    "gramsPer500kcal": 272,
-    "weightEstimated": true
+    "gramsPer500kcal": 270,
+    "weightEstimated": true,
+    "plate500": null
   },
   {
     "id": "pulled-pork-tacos",
@@ -3923,7 +3958,9 @@
     "kcalPer100g": 251,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "3 tacos",
+    "plate500": null
   },
   {
     "id": "crispy-chinese-fakeaway",
@@ -4124,9 +4161,24 @@
     "totalKcal": 1710,
     "cookedWeightG": 728,
     "kcalPer100g": 235,
-    "serveBy": "weight",
-    "gramsPer500kcal": 213,
-    "weightEstimated": true
+    "serveBy": "plate",
+    "gramsPer500kcal": 235,
+    "weightEstimated": true,
+    "plate500": {
+      "parts": [
+        {
+          "label": "rice",
+          "g": 40,
+          "kcal": 51
+        },
+        {
+          "label": "the rest",
+          "g": 195,
+          "kcal": 449
+        }
+      ]
+    },
+    "portionLabel": null
   },
   {
     "id": "roasted-aubergine-salad",
@@ -4320,8 +4372,9 @@
     "cookedWeightG": 1714,
     "kcalPer100g": 88,
     "serveBy": "weight",
-    "gramsPer500kcal": 571,
-    "weightEstimated": true
+    "gramsPer500kcal": 570,
+    "weightEstimated": true,
+    "plate500": null
   },
   {
     "id": "traditional-lasagne",
@@ -4500,8 +4553,9 @@
     "cookedWeightG": 2118,
     "kcalPer100g": 132,
     "serveBy": "weight",
-    "gramsPer500kcal": 378,
-    "weightEstimated": true
+    "gramsPer500kcal": 380,
+    "weightEstimated": true,
+    "plate500": null
   },
   {
     "id": "vegetable-lasagne",
@@ -4732,8 +4786,9 @@
     "cookedWeightG": 2686,
     "kcalPer100g": 106,
     "serveBy": "weight",
-    "gramsPer500kcal": 471,
-    "weightEstimated": true
+    "gramsPer500kcal": 470,
+    "weightEstimated": true,
+    "plate500": null
   },
   {
     "id": "chicken-korma",
@@ -4957,8 +5012,9 @@
     "cookedWeightG": 2256,
     "kcalPer100g": 158,
     "serveBy": "weight",
-    "gramsPer500kcal": 316,
-    "weightEstimated": true
+    "gramsPer500kcal": 315,
+    "weightEstimated": true,
+    "plate500": null
   },
   {
     "id": "chilli-con-carne-vegetariana",
@@ -5116,8 +5172,9 @@
     "cookedWeightG": 1041,
     "kcalPer100g": 135,
     "serveBy": "weight",
-    "gramsPer500kcal": 369,
-    "weightEstimated": true
+    "gramsPer500kcal": 370,
+    "weightEstimated": true,
+    "plate500": null
   },
   {
     "id": "prawn-cocktail",
@@ -5614,7 +5671,9 @@
     "kcalPer100g": 181,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "1 stuffed pitta",
+    "plate500": null
   },
   {
     "id": "cheese-scones",
@@ -6202,7 +6261,9 @@
     "kcalPer100g": 124,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "half the batch",
+    "plate500": null
   },
   {
     "id": "pastry-basic",
@@ -6854,9 +6915,11 @@
     "totalKcal": 2990,
     "cookedWeightG": 1449,
     "kcalPer100g": 206,
-    "serveBy": "weight",
+    "serveBy": "count",
     "gramsPer500kcal": 242,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "1 slice",
+    "plate500": null
   },
   {
     "id": "prawn-egg-fried-rice",
@@ -6987,9 +7050,10 @@
     "totalKcal": 384,
     "cookedWeightG": 681,
     "kcalPer100g": 56,
-    "serveBy": "count",
-    "gramsPer500kcal": null,
-    "weightEstimated": true
+    "serveBy": "weight",
+    "gramsPer500kcal": 885,
+    "weightEstimated": true,
+    "plate500": null
   },
   {
     "id": "chicken-tzatziki-salad",
@@ -7129,7 +7193,9 @@
     "kcalPer100g": 74,
     "serveBy": "count",
     "gramsPer500kcal": null,
-    "weightEstimated": true
+    "weightEstimated": true,
+    "portionLabel": "1 bowl",
+    "plate500": null
   },
   {
     "id": "chicken-nuggets-chips",
@@ -7215,8 +7281,25 @@
       "Everything should finish together. Serve immediately."
     ],
     "tip": "<strong>Single layer matters more than temperature.</strong> Crowded chips steam instead of crisping. Two trays beats one full one. Air fryer version: chips 18 mins at 200C, nuggets 10 mins, cooked in batches.",
-    "serveBy": "weight",
-    "portionsAt500": 5.1
+    "serveBy": "plate",
+    "portionsAt500": 5.1,
+    "cookedWeightG": 1422,
+    "portionLabel": "4 nuggets + chips",
+    "plate500": {
+      "parts": [
+        {
+          "label": "chips",
+          "g": 115,
+          "kcal": 218
+        },
+        {
+          "label": "the rest",
+          "g": 165,
+          "kcal": 282
+        }
+      ]
+    },
+    "gramsPer500kcal": 280
   },
   {
     "id": "sausage-mash",
@@ -7333,8 +7416,25 @@
       "Boil the peas for 3 minutes. Serve everything with the gravy poured over."
     ],
     "tip": "<strong>Steam-dry the potatoes.</strong> Two minutes in the colander after draining makes the difference between fluffy mash and glue. Warm the milk too, cold milk cools the potatoes and makes them claggy.",
-    "serveBy": "weight",
-    "portionsAt500": 5.7
+    "serveBy": "plate",
+    "portionsAt500": 5.7,
+    "cookedWeightG": 2233,
+    "portionLabel": "2 sausages + mash",
+    "plate500": {
+      "parts": [
+        {
+          "label": "mash",
+          "g": 220,
+          "kcal": 230
+        },
+        {
+          "label": "the rest",
+          "g": 205,
+          "kcal": 270
+        }
+      ]
+    },
+    "gramsPer500kcal": 425
   },
   {
     "id": "chicken-burgers",
@@ -7453,8 +7553,11 @@
       "Spread mayo on both halves, add lettuce and tomato, then the patty. Serve."
     ],
     "tip": "<strong>Toast the cut side of the bun.</strong> Thirty seconds in a dry pan stops it going soggy under the mayo. Calorie figure is patty, bun, cheese and mayo only, chips are extra at roughly 165 kcal per 100g.",
-    "serveBy": "weight",
-    "portionsAt500": 4.9
+    "serveBy": "count",
+    "portionsAt500": 4.9,
+    "cookedWeightG": 801,
+    "portionLabel": "1 burger",
+    "plate500": null
   },
   {
     "id": "homemade-pizza",
@@ -7571,8 +7674,11 @@
       "Drizzle with olive oil and serve."
     ],
     "tip": "<strong>The tray has to be preheated.</strong> A cold tray gives you a pale, bready base. Getting it screaming hot first is the single biggest difference between homemade and takeaway. Calories assume the from-scratch dough at roughly 460 kcal a base, shop-bought thin bases run closer to 250.",
-    "serveBy": "weight",
-    "portionsAt500": 6
+    "serveBy": "count",
+    "portionsAt500": 6,
+    "cookedWeightG": 468,
+    "portionLabel": "1 pizza",
+    "plate500": null
   },
   {
     "id": "roast-chicken-dinner",
@@ -7723,8 +7829,12 @@
       "Make the gravy with the resting juices. Carve and serve."
     ],
     "tip": "<strong>Rest the bird, and rough up the potatoes.</strong> Fifteen minutes resting makes the chicken noticeably juicier and gives you time to finish everything else. Shaking the parboiled potatoes in the colander creates the broken surface that turns into crunch. The whole meal is roughly 3,050 kcal across four, and there'll be chicken left over for sandwiches or the Chicken and Tzatziki Salad.",
-    "serveBy": "weight",
-    "portionsAt500": 6.1
+    "serveBy": "count",
+    "portionsAt500": 6.1,
+    "cookedWeightG": 3140,
+    "portionLabel": "a plateful — keep roast potatoes to ~150g",
+    "plate500": null,
+    "gramsPer500kcal": 635
   },
   {
     "id": "roast-beef-dinner",
@@ -7884,8 +7994,12 @@
       "Carve the beef thinly across the grain and serve."
     ],
     "tip": "<strong>The resting time is the Yorkshire cooking time.</strong> That's how the timing works: beef out and resting, oven up, Yorkshires in. Rested batter and smoking-hot fat are what make them rise. Opening the oven door partway through will flatten them.",
-    "serveBy": "weight",
-    "portionsAt500": 6.4
+    "serveBy": "count",
+    "portionsAt500": 6.4,
+    "cookedWeightG": 3376,
+    "portionLabel": "a plateful — keep roast potatoes to ~140g",
+    "plate500": null,
+    "gramsPer500kcal": 590
   },
   {
     "id": "roast-lamb-dinner",
@@ -8034,8 +8148,12 @@
       "Make the gravy from the pan juices, skimming off some of the fat first. Carve and serve with mint sauce."
     ],
     "tip": "<strong>Skim the gravy.</strong> Lamb throws off a lot of fat and the gravy will be greasy if you don't spoon some off before making it. The garlic-and-rosemary studding takes three minutes and is the whole flavour of the dish, so don't skip it.",
-    "serveBy": "weight",
-    "portionsAt500": 6.8
+    "serveBy": "count",
+    "portionsAt500": 6.8,
+    "cookedWeightG": 2991,
+    "portionLabel": "a plateful — keep roast potatoes to ~135g",
+    "plate500": null,
+    "gramsPer500kcal": 525
   },
   {
     "id": "chicken-schnitzel",
@@ -8162,8 +8280,25 @@
       "Drain on kitchen paper. Serve with lemon wedges, chips and salad."
     ],
     "tip": "<strong>Thin and even is the whole trick.</strong> Bashing to 1cm means it cooks through in the time the crumb takes to brown. A thick breast gives you a burnt coating and raw middle. Fry in two batches rather than crowding the pan.",
-    "serveBy": "weight",
-    "portionsAt500": 5.3
+    "serveBy": "plate",
+    "portionsAt500": 5.3,
+    "cookedWeightG": 1683,
+    "portionLabel": "1 schnitzel + chips",
+    "plate500": {
+      "parts": [
+        {
+          "label": "chips",
+          "g": 95,
+          "kcal": 180
+        },
+        {
+          "label": "the rest",
+          "g": 225,
+          "kcal": 320
+        }
+      ]
+    },
+    "gramsPer500kcal": 325
   },
   {
     "id": "pasta-bake",
@@ -8285,7 +8420,10 @@
     ],
     "tip": "<strong>Undercook the pasta and keep it saucy.</strong> Pasta bakes dry out in the oven, so it should look slightly too wet going in. Two minutes under on the boil stops it going mushy. Leftover roast chicken works perfectly here.",
     "serveBy": "weight",
-    "portionsAt500": 5.5
+    "portionsAt500": 5.5,
+    "cookedWeightG": 2333,
+    "plate500": null,
+    "gramsPer500kcal": 425
   },
   {
     "id": "hot-dogs",
@@ -8400,8 +8538,11 @@
       "Split the rolls, add a frankfurter, pile on the onions, and finish with mustard and ketchup."
     ],
     "tip": "<strong>Simmer, never boil.</strong> Hard boiling splits frankfurters and they lose their texture. Ten minutes of patience on the onions is what separates this from a petrol station hot dog.",
-    "serveBy": "weight",
-    "portionsAt500": 5.5
+    "serveBy": "count",
+    "portionsAt500": 5.5,
+    "cookedWeightG": 299,
+    "portionLabel": "2 hot dogs",
+    "plate500": null
   },
   {
     "id": "enchiladas",
@@ -8532,8 +8673,11 @@
       "Bake 20 minutes until bubbling and browned. Serve with soured cream."
     ],
     "tip": "<strong>Seam-side down, or they unroll.</strong> Kit sauces vary a lot in quantity, so if yours looks mean, stretch it with a small tin of chopped tomatoes. This freezes well assembled but unbaked.",
-    "serveBy": "weight",
-    "portionsAt500": 5.9
+    "serveBy": "count",
+    "portionsAt500": 5.9,
+    "cookedWeightG": 1148,
+    "portionLabel": "2 enchiladas",
+    "plate500": null
   },
   {
     "id": "cottage-pie",
@@ -8706,7 +8850,10 @@
     ],
     "tip": "<strong>Fork the top.</strong> The ridges are what catch and crisp. Also make sure the mince has reduced properly before it goes under the mash, or the whole thing turns soupy. Freezes well assembled, cook from frozen at 180C for about an hour.",
     "serveBy": "weight",
-    "portionsAt500": 5.3
+    "portionsAt500": 5.3,
+    "cookedWeightG": 2328,
+    "plate500": null,
+    "gramsPer500kcal": 435
   },
   {
     "id": "jacket-potatoes",
@@ -8845,7 +8992,10 @@
     ],
     "tip": "<strong>Straight on the shelf, no foil.</strong> Foil steams the skin soft, which defeats the point. Oil and salt on the skin is what makes it crisp. Microwaving for 6 minutes first cuts the oven time to about 35 minutes if you're in a hurry, though the skin is never quite as good. Calorie figure assumes beans and a little cheese; tuna mayo comes in similar, cheese alone pushes it higher.",
     "serveBy": "weight",
-    "portionsAt500": 4
+    "portionsAt500": 4,
+    "cookedWeightG": 935,
+    "plate500": null,
+    "gramsPer500kcal": 230
   },
   {
     "id": "ribs-chips-coleslaw",
@@ -9002,8 +9152,25 @@
       "Cook the chips or wedges while the ribs glaze. Serve everything together."
     ],
     "tip": "<strong>Low and slow first, sauce last.</strong> BBQ sauce contains a lot of sugar and will burn over a three hour cook, so it only goes on at the end. This is the richest dinner in the book after the chicken and bacon pasta, so it makes about eight 500 kcal portions rather than four; expect leftovers or serve smaller.",
-    "serveBy": "weight",
-    "portionsAt500": 8.1
+    "serveBy": "plate",
+    "portionsAt500": 8.1,
+    "cookedWeightG": 1980,
+    "portionLabel": "quarter rack + sides",
+    "plate500": {
+      "parts": [
+        {
+          "label": "chips",
+          "g": 75,
+          "kcal": 139
+        },
+        {
+          "label": "the rest",
+          "g": 230,
+          "kcal": 361
+        }
+      ]
+    },
+    "gramsPer500kcal": 300
   },
   {
     "id": "chicken-curry-jar",
@@ -9123,8 +9290,25 @@
       "Finish with coriander and serve."
     ],
     "tip": "<strong>Swill the jar out.</strong> There's a good few spoonfuls of sauce left in it, and the extra water stops the sauce catching. Browning the chicken first rather than just poaching it in the sauce makes a bigger difference than the brand of jar does.",
-    "serveBy": "weight",
-    "portionsAt500": 4.8
+    "serveBy": "plate",
+    "portionsAt500": 4.8,
+    "cookedWeightG": 2504,
+    "plate500": {
+      "parts": [
+        {
+          "label": "rice",
+          "g": 170,
+          "kcal": 219
+        },
+        {
+          "label": "the rest",
+          "g": 250,
+          "kcal": 281
+        }
+      ]
+    },
+    "gramsPer500kcal": 420,
+    "portionLabel": null
   },
   {
     "id": "sweet-sour-chicken",
@@ -9255,8 +9439,25 @@
       "Serve over the rice."
     ],
     "tip": "<strong>High heat, don't crowd the pan.</strong> Stir fries go wrong when the pan is too full and everything steams. Cook the chicken first, take it out, then do the veg. Keeping the peppers crunchy is what stops this tasting like a ready meal.",
-    "serveBy": "weight",
-    "portionsAt500": 5
+    "serveBy": "plate",
+    "portionsAt500": 5,
+    "cookedWeightG": 3545,
+    "plate500": {
+      "parts": [
+        {
+          "label": "rice",
+          "g": 160,
+          "kcal": 210
+        },
+        {
+          "label": "the rest",
+          "g": 340,
+          "kcal": 290
+        }
+      ]
+    },
+    "gramsPer500kcal": 500,
+    "portionLabel": null
   },
   {
     "id": "spaghetti-bolognese",
@@ -9429,7 +9630,10 @@
     ],
     "tip": "<strong>Toss the pasta through the sauce, don't ladle it on top.</strong> A splash of the starchy cooking water helps the sauce cling. The soffritto base at the start looks like a fiddle for a weeknight but it's most of the flavour. Doubles and freezes well.",
     "serveBy": "weight",
-    "portionsAt500": 5.7
+    "portionsAt500": 5.7,
+    "cookedWeightG": 2844,
+    "plate500": null,
+    "gramsPer500kcal": 495
   },
   {
     "id": "chicken-wraps",
@@ -9581,8 +9785,11 @@
       "Serve with the chips."
     ],
     "tip": "<strong>Warm the wraps or they crack.</strong> Cold tortillas split the moment you roll them. Charring the chicken slightly at high heat is worth chasing, it's most of the flavour given how few ingredients this has.",
-    "serveBy": "weight",
-    "portionsAt500": 5.6
+    "serveBy": "count",
+    "portionsAt500": 5.6,
+    "cookedWeightG": 1319,
+    "portionLabel": "2 wraps",
+    "plate500": null
   },
   {
     "id": "gyros",
@@ -9754,8 +9961,11 @@
       "Roll tightly in greaseproof paper and eat immediately."
     ],
     "tip": "<strong>The chips go inside.</strong> It sounds odd and it's completely correct. Wrapping in greaseproof paper isn't just for show either, it holds the whole thing together while you eat it. Cook the meat in batches so it chars rather than stews.",
-    "serveBy": "weight",
-    "portionsAt500": 5.6
+    "serveBy": "count",
+    "portionsAt500": 5.6,
+    "cookedWeightG": 1805,
+    "portionLabel": "1 gyros",
+    "plate500": null
   },
   {
     "id": "fish-and-chips",
@@ -9862,8 +10072,25 @@
       "Serve with tartare sauce, lemon wedges and plenty of vinegar on the chips."
     ],
     "tip": "<strong>Two trays, never one.</strong> Fish releases steam as it cooks and will soften the chips if they share a tray. If fish is a hard sell in your house, this is the version most likely to get eaten, since the batter and the chips are doing most of the talking.",
-    "serveBy": "weight",
-    "portionsAt500": 6.2
+    "serveBy": "plate",
+    "portionsAt500": 6.2,
+    "cookedWeightG": 1125,
+    "portionLabel": "1 fillet + chips",
+    "plate500": {
+      "parts": [
+        {
+          "label": "chips",
+          "g": 95,
+          "kcal": 182
+        },
+        {
+          "label": "the rest",
+          "g": 175,
+          "kcal": 318
+        }
+      ]
+    },
+    "gramsPer500kcal": 275
   },
   {
     "id": "tuna-pasta-bake",
@@ -10013,7 +10240,10 @@
     ],
     "tip": "<strong>Season the sauce harder than feels right.</strong> Pasta and tuna are both bland, so an underseasoned cheese sauce leaves the whole dish flat. The mustard isn't optional either, it sharpens the cheese without tasting of mustard.",
     "serveBy": "weight",
-    "portionsAt500": 5.8
+    "portionsAt500": 5.8,
+    "cookedWeightG": 2850,
+    "plate500": null,
+    "gramsPer500kcal": 490
   },
   {
     "id": "prawn-stir-fry",
@@ -10165,7 +10395,10 @@
     ],
     "tip": "<strong>Take the prawns out.</strong> They cook in two minutes and go rubbery if they stay in for the whole stir fry. Rinsing the noodles cold stops them turning into a single lump in the wok. At around 500 kcal a portion this is one of the few dinners that needs no adjustment at all.",
     "serveBy": "weight",
-    "portionsAt500": 4
+    "portionsAt500": 4,
+    "cookedWeightG": 2535,
+    "plate500": null,
+    "gramsPer500kcal": 635
   },
   {
     "id": "prawn-curry",
@@ -10296,8 +10529,25 @@
       "Finish with coriander and serve with the rice and lemon wedges."
     ],
     "tip": "<strong>Prawns go in last and briefly.</strong> Three or four minutes is all they need; any longer and they tighten up and go chewy. Get the sauce hot and properly simmering before they go anywhere near it.",
-    "serveBy": "weight",
-    "portionsAt500": 4.1
+    "serveBy": "plate",
+    "portionsAt500": 4.1,
+    "cookedWeightG": 2814,
+    "plate500": {
+      "parts": [
+        {
+          "label": "rice",
+          "g": 200,
+          "kcal": 256
+        },
+        {
+          "label": "the rest",
+          "g": 315,
+          "kcal": 244
+        }
+      ]
+    },
+    "gramsPer500kcal": 510,
+    "portionLabel": null
   },
   {
     "id": "shepherds-pie",
@@ -10493,7 +10743,10 @@
     ],
     "tip": "<strong>Spoon off the lamb fat.</strong> Lamb mince renders a lot more than beef and the filling turns greasy if you leave it all in. Rosemary rather than the usual thyme is what makes this taste distinctly of shepherd's pie rather than cottage pie with different mince.",
     "serveBy": "weight",
-    "portionsAt500": 5.6
+    "portionsAt500": 5.6,
+    "cookedWeightG": 2475,
+    "plate500": null,
+    "gramsPer500kcal": 440
   },
   {
     "id": "lamb-tagine",
@@ -10686,8 +10939,25 @@
       "Season the tagine, scatter with coriander, and serve over the couscous."
     ],
     "tip": "<strong>Brown the lamb in batches.</strong> Piling it all in at once drops the pan temperature and it boils in its own juices instead of colouring, which costs you most of the flavour. The apricots aren't a garnish, the sweetness against the cumin is the whole point of a tagine. Better the next day.",
-    "serveBy": "weight",
-    "portionsAt500": 6.4
+    "serveBy": "plate",
+    "portionsAt500": 6.4,
+    "cookedWeightG": 3422,
+    "plate500": {
+      "parts": [
+        {
+          "label": "couscous",
+          "g": 110,
+          "kcal": 147
+        },
+        {
+          "label": "the rest",
+          "g": 340,
+          "kcal": 353
+        }
+      ]
+    },
+    "gramsPer500kcal": 450,
+    "portionLabel": null
   },
   {
     "id": "lamb-chops-new-potatoes",
@@ -10825,7 +11095,24 @@
       "Drain the potatoes and toss with butter and seasoning. Serve with mint sauce."
     ],
     "tip": "<strong>Render the fat edge.</strong> Standing the chops on their fatty side for a minute before you lay them flat crisps it and stops it being flabby. Resting for five minutes matters as much on chops as on a roast.",
-    "serveBy": "weight",
-    "portionsAt500": 5.8
+    "serveBy": "plate",
+    "portionsAt500": 5.8,
+    "cookedWeightG": 1062,
+    "portionLabel": "2 chops + potatoes",
+    "plate500": {
+      "parts": [
+        {
+          "label": "new potatoes",
+          "g": 140,
+          "kcal": 106
+        },
+        {
+          "label": "the rest",
+          "g": 195,
+          "kcal": 394
+        }
+      ]
+    },
+    "gramsPer500kcal": 330
   }
 ]

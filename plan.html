@@ -488,10 +488,23 @@ function openDrawer(id) {
   const scale = r.totalKcal ? target / r.totalKcal : 1;
   let h = `<h2>${esc(r.title)}</h2><p style="color:var(--mid);font-size:14px;line-height:1.6">${esc(r.desc)}</p>`;
 
-  if (r.serveBy === "weight" && r.gramsPer500kcal) {
-    h += `<div class="portion"><strong>${r.gramsPer500kcal}g</strong> is a 500 kcal portion for you and Jo. Whole dish is about ${r.totalKcal.toLocaleString()} kcal.</div>`;
+  const whole = r.totalKcal ? ` Whole dish is about ${r.totalKcal.toLocaleString()} kcal.` : "";
+
+  if (r.plate500?.parts?.length) {
+    const parts = r.plate500.parts
+      .map((p) => `<strong>${p.g}g</strong> ${esc(p.label)} <span style="color:var(--mid)">(${p.kcal} kcal)</span>`)
+      .join(" &nbsp;+&nbsp; ");
+    h += `<div class="portion"><div style="font-weight:500;margin-bottom:4px">A 500 kcal plate</div>${parts}` +
+         `<div style="color:var(--mid);margin-top:6px;font-size:12.5px">Double it for the teenagers.${whole}</div></div>`;
+  } else if (r.serveBy === "weight" && r.gramsPer500kcal) {
+    h += `<div class="portion"><strong>${r.gramsPer500kcal}g</strong> is a 500 kcal portion for you and Jo` +
+         ` — about <strong>${Math.round(r.gramsPer500kcal * 1.5)}g</strong> for the teenagers.` +
+         `<div style="color:var(--mid);margin-top:6px;font-size:12.5px">${whole}</div></div>`;
+  } else if (r.portionLabel) {
+    h += `<div class="portion">A 500 kcal portion is roughly <strong>${esc(r.portionLabel)}</strong>.` +
+         `<div style="color:var(--mid);margin-top:6px;font-size:12.5px">Served by the piece, so there is no useful weight.${whole}</div></div>`;
   } else if (r.totalKcal) {
-    h += `<div class="portion">Served by the piece. Whole dish is about ${r.totalKcal.toLocaleString()} kcal.</div>`;
+    h += `<div class="portion">Whole dish is about ${r.totalKcal.toLocaleString()} kcal.</div>`;
   }
   if (Math.abs(scale - 1) > 0.08) {
     h += `<div class="portion" style="background:var(--accent-bg)">Scale this recipe <strong>×${scale.toFixed(2)}</strong> to feed all four of you.</div>`;
