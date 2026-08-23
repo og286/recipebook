@@ -122,6 +122,43 @@ input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:tra
 .dr .tip{background:var(--accent-bg);border-radius:7px;padding:12px 14px;font-size:13.5px;line-height:1.6;margin-top:18px}
 .portion{background:var(--sage-bg);border-radius:7px;padding:11px 14px;font-size:13.5px;line-height:1.55;margin-top:12px}
 
+
+/* ── PRINT SHEET ──────────────────────────────────────────────── */
+/* Rendered off-screen rather than display:none, so it can be measured.
+   A hidden element has no layout and would measure as zero. */
+#sheet{position:absolute;left:-10000px;top:0}
+.sheet-inner{
+  /* A4 width minus 12mm margins at 96dpi. Height must stay auto: a fixed
+     height makes CSS columns spill sideways instead of growing, which would
+     make the measurement meaningless. */
+  width:749px; height:auto;
+  font-family:'DM Sans',system-ui,sans-serif; color:#000; background:#fff;
+}
+.sheet-head{border-bottom:1.5px solid #000;padding-bottom:6px;margin-bottom:10px}
+.sheet-head h2{font-family:'Fraunces',Georgia,serif;font-size:19px;font-weight:700;margin:0}
+.sheet-head .meals{font-size:9.5px;color:#444;margin-top:3px;line-height:1.45}
+.sheet-cols{column-count:2;column-gap:26px;column-fill:balance}
+.sh-sec{break-inside:avoid;margin-bottom:9px}
+.sh-sec h3{font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  border-bottom:1px solid #000;padding-bottom:2px;margin-bottom:3px}
+.sh-row{display:flex;align-items:baseline;gap:5px;padding:1px 0}
+.sh-box{flex:none;width:8px;height:8px;border:1px solid #555;border-radius:1px;position:relative;top:1px}
+.sh-name{flex:1;min-width:0}
+.sh-qty{font-weight:600;white-space:nowrap;padding-left:6px}
+.sh-blank{border-bottom:1px dotted #999;margin:0 0 0 13px}
+.sh-pantry{break-inside:avoid;margin-top:4px;padding-top:5px;border-top:1px solid #000}
+.sh-pantry .t{font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:2px}
+.sh-pantry .b{color:#333;line-height:1.5}
+
+@media print{
+  @page{size:A4 portrait;margin:12mm}
+  body{background:#fff}
+  .wrap,.ov,.dr{display:none !important}
+  #sheet{position:static;left:auto}
+  .sheet-inner{width:auto}
+  .sh-sec{break-inside:avoid}
+}
+
 @media(max-width:560px){
   .slot-n{width:34px}
   .slot-body{padding:10px 11px}
@@ -160,6 +197,7 @@ input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:tra
     <div class="toolbar">
       <span class="status" id="shop-st"></span>
       <div class="spacer"></div>
+      <button class="btn ghost" id="print">Print</button>
       <button class="btn ghost" id="uncheck">Clear ticks</button>
     </div>
     <div id="shop"></div>
@@ -185,6 +223,8 @@ input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:tra
     </div>
   </section>
 </div>
+
+<div id="sheet"><div class="sheet-inner" id="sheet-inner"></div></div>
 
 <div class="ov" id="ov"></div>
 <aside class="dr" id="dr"><button class="close" id="drx">&times;</button><div id="drc"></div></aside>
@@ -429,7 +469,10 @@ function renderShopping() {
   }
   const map = byId();
   const chosen = PLAN.slots.map((s) => map.get(s.recipeId)).filter(Boolean);
-  const list = buildList(chosen, RULES, SETTINGS.familyKcal || 2500);
+  const standing = (SETTINGS.standing ?? [{ id: "smoothie", servings: 14 }])
+    .map(({ id, servings }) => ({ recipe: map.get(id), servings }))
+    .filter((x) => x.recipe);
+  const list = buildList(chosen, RULES, SETTINGS.familyKcal || 2500, standing);
   const checked = new Set(PLAN.shopping?.checked ?? []);
   let n = 0;
 
@@ -461,8 +504,90 @@ function renderShopping() {
     p.append(el("div", null, [...list.pantry.keys()].sort().map(esc).join(" &middot; ")));
     box.append(p);
   }
-  $("#shop-st").textContent = `${list.items.size + list.vague.length} things to buy, ${list.pantry.size} to check`;
+  const std = standing.map((x) => `${x.recipe.title} ×${x.servings}`).join(", ");
+  $("#shop-st").textContent =
+    `${list.items.size + list.vague.length} things to buy, ${list.pantry.size} to check` +
+    (std ? ` · includes ${std}` : "");
 }
+
+
+/* ------------------------------------------------- printable A4 sheet */
+/**
+ * Builds a one-page A4 shopping list with ruled lines to write extra items on.
+ * The number of blank lines is not fixed: we measure the rendered sheet and
+ * distribute however many lines fit, so the page is always full but never
+ * spills onto a second sheet.
+ */
+function buildSheet() {
+  if (!PLAN?.slots?.length) return false;
+  const map = byId();
+  const chosen = PLAN.slots.map((s) => map.get(s.recipeId)).filter(Boolean);
+  const standing = (SETTINGS.standing ?? [{ id: "smoothie", servings: 14 }])
+    .map(({ id, servings }) => ({ recipe: map.get(id), servings }))
+    .filter((x) => x.recipe);
+  const list = buildList(chosen, RULES, SETTINGS.familyKcal || 2500, standing);
+  const groups = groupByAisle(list, RULES);
+
+  const inner = $("#sheet-inner");
+  const meals = [...chosen.map((r) => r.title), ...standing.map((x) => `${x.recipe.title} ×${x.servings}`)];
+
+  const render = (blanks, fontPx) => {
+    inner.style.fontSize = fontPx + "px";
+    inner.innerHTML =
+      `<div class="sheet-head"><h2>Shopping list &middot; week of ${esc(PLAN.weekOf)}</h2>` +
+      `<div class="meals">${meals.map(esc).join(" &middot; ")}</div></div>` +
+      `<div class="sheet-cols">` +
+      groups.map((g, gi) => {
+        const rows = g.rows.map((row) =>
+          `<div class="sh-row"><span class="sh-box"></span>` +
+          `<span class="sh-name">${esc(row.item)}</span>` +
+          `<span class="sh-qty">${esc(row.qty)}</span></div>`).join("");
+        const lines = Array.from({ length: blanks[gi] ?? 0 },
+          () => `<div class="sh-row"><span class="sh-box"></span><span class="sh-blank">&nbsp;</span></div>`).join("");
+        return `<div class="sh-sec"><h3>${esc(g.name)}</h3>${rows}${lines}</div>`;
+      }).join("") +
+      (list.pantry.size
+        ? `<div class="sh-pantry"><div class="t">Check you have</div>` +
+          `<div class="b">${[...list.pantry.keys()].sort().map(esc).join(" &middot; ")}</div></div>`
+        : "") +
+      `</div>`;
+    return inner.offsetHeight;
+  };
+
+  const PAGE = 1032;                       // A4 minus 12mm margins, at 96dpi
+  const blanks = groups.map(() => 0);
+  let font = 11;
+
+  // shrink first if the bare list already overflows
+  let h = render(blanks, font);
+  while (h > PAGE && font > 8) {
+    font -= 0.5;
+    h = render(blanks, font);
+  }
+
+  // then grow into the space, one line at a time, biggest sections first
+  const order = groups
+    .map((g, i) => ({ i, n: g.rows.length }))
+    .sort((a, b) => b.n - a.n)
+    .map((x) => x.i);
+  let guard = 0;
+  outer:
+  for (let pass = 0; pass < 20; pass++) {
+    for (const i of order) {
+      if (guard++ > 400) break outer;
+      blanks[i]++;
+      if (render(blanks, font) > PAGE) { blanks[i]--; break outer; }
+    }
+  }
+  // last safety net: if anything above left us over a page, drop the blanks
+  if (render(blanks, font) > PAGE) render(blanks.map(() => 0), font);
+  return true;
+}
+
+$("#print").onclick = () => {
+  if (!buildSheet()) return ($("#shop-st").textContent = "Generate a week first.");
+  window.print();
+};
 
 $("#uncheck").onclick = () => { if (PLAN) { PLAN.shopping = { checked: [] }; renderShopping(); } };
 

@@ -41,20 +41,32 @@ export function convert(qty, from, to, item, rules) {
 }
 
 /**
- * @param {object[]} chosen  recipe objects for the week
- * @param {object}   rules   ingredient-rules.json
+ * @param {object[]} chosen    planned recipes — each scaled to feed the family once
+ * @param {object}   rules     ingredient-rules.json
  * @param {number}   familyKcal
+ * @param {object[]} standing  things eaten every week regardless of the plan,
+ *                             as [{ recipe, servings }] — e.g. 14 breakfast
+ *                             smoothies, two a day for Jon and Jo. Scaled by
+ *                             serving count, not by the family calorie target.
  * @returns {{ items, pantry, vague, scales }}
  */
-export function buildList(chosen, rules, familyKcal = 2500) {
+export function buildList(chosen, rules, familyKcal = 2500, standing = []) {
   const units = targetUnits(rules);
   const agg = new Map();
   const pantry = new Map();
   const vague = [];
   const scales = new Map();
 
-  for (const r of chosen) {
-    const scale = r.totalKcal ? familyKcal / r.totalKcal : 1;
+  const entries = [
+    ...chosen.map((r) => ({ r, scale: r.totalKcal ? familyKcal / r.totalKcal : 1, label: r.title })),
+    ...standing.map(({ recipe, servings }) => ({
+      r: recipe,
+      scale: servings / (recipe.serves || 1),
+      label: `${recipe.title} ×${servings}`,
+    })),
+  ];
+
+  for (const { r, scale, label } of entries) {
     scales.set(r.id, scale);
     for (const ing of r.ingredients ?? []) {
       const b = ing.buy;
@@ -62,23 +74,23 @@ export function buildList(chosen, rules, familyKcal = 2500) {
 
       if (b.pantry) {
         if (!pantry.has(b.item)) pantry.set(b.item, { aisle: b.aisle, from: new Set() });
-        pantry.get(b.item).from.add(r.title);
+        pantry.get(b.item).from.add(label);
         continue;
       }
       if (b.qty == null || b.unit === "splash") {
-        vague.push({ item: b.item, aisle: b.aisle, from: r.title });
+        vague.push({ item: b.item, aisle: b.aisle, from: label });
         continue;
       }
       const to = units.get(b.item) ?? b.unit;
       const q = convert(b.qty * scale, b.unit, to, b.item, rules);
       if (q == null) {
-        vague.push({ item: b.item, aisle: b.aisle, from: r.title });
+        vague.push({ item: b.item, aisle: b.aisle, from: label });
         continue;
       }
       if (!agg.has(b.item)) agg.set(b.item, { item: b.item, unit: to, qty: 0, aisle: b.aisle, from: new Set() });
       const e = agg.get(b.item);
       e.qty += q;
-      e.from.add(r.title);
+      e.from.add(label);
     }
   }
   return { items: agg, pantry, vague, scales };
