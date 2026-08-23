@@ -1,10 +1,10 @@
 [
   {
     "id": "smoothie",
-    "category": "smoothie",
+    "category": "breakfast",
     "colour": "#0C447C",
     "title": "Raspberry Peanut Butter Smoothie",
-    "subtitle": "Daily breakfast",
+    "subtitle": "Breakfast",
     "desc": "Your go-to weekday breakfast. 2/3 of the original recipe — blended and ready in 2 minutes.",
     "badges": [
       "badge-quick"
@@ -1051,11 +1051,11 @@
   },
   {
     "id": "fried-breakfast",
-    "category": "treat",
+    "category": "dinner",
     "colour": "#8B2252",
     "title": "The Lean Fry-Up",
-    "subtitle": "Weekend treat",
-    "desc": "All the satisfaction of a fried breakfast, calorie-counted so you know exactly where you stand.",
+    "subtitle": "Dinner",
+    "desc": "All the satisfaction of a fried breakfast, eaten when you actually want it. Calorie-counted so you know exactly where you stand.",
     "badges": [
       "badge-quick"
     ],
@@ -1144,7 +1144,7 @@
     "plan": {
       "eligible": true,
       "mealTypes": [
-        "breakfast"
+        "dinner"
       ],
       "effort": "medium",
       "activeMins": 20,
@@ -1152,7 +1152,7 @@
       "protein": "pork",
       "cuisine": "british",
       "freezes": false,
-      "boost": 0.4
+      "boost": 1
     },
     "totalKcal": 500,
     "cookedWeightG": 435,
@@ -1387,10 +1387,10 @@
   },
   {
     "id": "bread-butter-pudding",
-    "category": "treat",
+    "category": "dessert",
     "colour": "#6B3F2A",
     "title": "Bread and Butter Pudding",
-    "subtitle": "Weekend treat",
+    "subtitle": "Dessert",
     "desc": "Layered buttered bread, sultanas and cinnamon under a baked custard. Cook the whole dish, then weigh out a portion to hit your calorie target.",
     "badges": [
       "badge-batch"
@@ -5677,10 +5677,10 @@
   },
   {
     "id": "cheese-scones",
-    "category": "baking",
+    "category": "dessert",
     "colour": "#B8964A",
     "title": "Cheese Scones",
-    "subtitle": "Baking",
+    "subtitle": "Dessert — savoury",
     "desc": "Quick savoury scones, best served warm. Makes about 8, so worth doubling if baking for more than a couple of people.",
     "badges": [
       "badge-quick"
@@ -5766,10 +5766,10 @@
   },
   {
     "id": "banana-bread",
-    "category": "baking",
+    "category": "dessert",
     "colour": "#8B6F3D",
     "title": "Banana Bread",
-    "subtitle": "Baking",
+    "subtitle": "Dessert",
     "desc": "A simple one-bowl banana loaf. Assumed to cut into 10 slices.",
     "badges": [
       "badge-quick"
@@ -5861,10 +5861,10 @@
   },
   {
     "id": "apple-pie",
-    "category": "baking",
+    "category": "dessert",
     "colour": "#A8632E",
     "title": "Apple Pie",
-    "subtitle": "Baking",
+    "subtitle": "Dessert",
     "desc": "A classic double-crust apple pie using a full batch of shortcrust pastry. Assumed to serve 6.",
     "badges": [
       "badge-quick"
@@ -5940,10 +5940,10 @@
   },
   {
     "id": "pancakes-classic",
-    "category": "baking",
+    "category": "breakfast",
     "colour": "#C9A66B",
     "title": "Pancakes",
-    "subtitle": "Baking",
+    "subtitle": "Breakfast",
     "desc": "Classic thin pancakes fried in lard. Figure below is batter only — sugar, lemon or golden syrup to serve aren't counted.",
     "badges": [
       "badge-quick"
@@ -6034,10 +6034,10 @@
   },
   {
     "id": "kuths-scotch-pancakes",
-    "category": "baking",
+    "category": "breakfast",
     "colour": "#D4A017",
     "title": "Kuth's Scotch Pancakes",
-    "subtitle": "Baking",
+    "subtitle": "Breakfast",
     "desc": "Thick, bubbly drop scones fried in butter. A handwritten family recipe.",
     "badges": [
       "badge-quick"
@@ -6338,10 +6338,10 @@
   },
   {
     "id": "jam-tart",
-    "category": "baking",
+    "category": "dessert",
     "colour": "#B8405E",
     "title": "Jam Tart",
-    "subtitle": "Baking",
+    "subtitle": "Dessert",
     "desc": "A large jam tart using half a batch of pastry. Assumed cut into 6 slices. Can be swapped for golden syrup (syrup tart) or made as small individual tarts.",
     "badges": [
       "badge-quick"
@@ -6397,7 +6397,7 @@
   },
   {
     "id": "fruit-salad",
-    "category": "baking",
+    "category": "dessert",
     "colour": "#6B9BC3",
     "title": "Fruit Salad",
     "subtitle": "Dessert",
@@ -6466,10 +6466,10 @@
   },
   {
     "id": "carrot-cake",
-    "category": "baking",
+    "category": "dessert",
     "colour": "#CC7722",
     "title": "Carrot Cake",
-    "subtitle": "Baking",
+    "subtitle": "Dessert",
     "desc": "A spiced carrot cake with walnuts and cream cheese frosting. Assumed cut into 14 slices. Raisins are listed but the original note says \"I don't use these\" — excluded below.",
     "badges": [
       "badge-quick"
@@ -6668,10 +6668,10 @@
   },
   {
     "id": "scotts-flapjacks",
-    "category": "baking",
+    "category": "dessert",
     "colour": "#A67B3D",
     "title": "Scott's Flapjacks",
-    "subtitle": "Baking",
+    "subtitle": "Dessert",
     "desc": "Simple oat flapjacks baked in a 30x20cm tin. Assumed cut into 14 pieces.",
     "badges": [
       "badge-quick"
@@ -7833,8 +7833,7 @@
     "portionsAt500": 6.1,
     "cookedWeightG": 3140,
     "portionLabel": "a plateful — keep roast potatoes to ~150g",
-    "plate500": null,
-    "gramsPer500kcal": 635
+    "plate500": null
   },
   {
     "id": "roast-beef-dinner",
@@ -7998,8 +7997,7 @@
     "portionsAt500": 6.4,
     "cookedWeightG": 3376,
     "portionLabel": "a plateful — keep roast potatoes to ~140g",
-    "plate500": null,
-    "gramsPer500kcal": 590
+    "plate500": null
   },
   {
     "id": "roast-lamb-dinner",
@@ -8152,8 +8150,7 @@
     "portionsAt500": 6.8,
     "cookedWeightG": 2991,
     "portionLabel": "a plateful — keep roast potatoes to ~135g",
-    "plate500": null,
-    "gramsPer500kcal": 525
+    "plate500": null
   },
   {
     "id": "chicken-schnitzel",
