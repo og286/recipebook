@@ -34,13 +34,8 @@ function recipesFor(catId) {
 
 /* ── CARD RENDER ─────────────────────────────────────────────── */
 function kcalPillsHTML(r) {
-  if (r.kcal.both) {
-    return `<span class="kcal-pill both">${r.kcal.both}</span>`;
-  }
-  let html = '';
-  if (r.kcal.jon) html += `<span class="kcal-pill jon">Jon ${r.kcal.jon}</span>`;
-  if (r.kcal.jo)  html += `<span class="kcal-pill jo">Jo ${r.kcal.jo}</span>`;
-  return html;
+  const v = r.kcal && (r.kcal.both || r.kcal.jon);
+  return v ? `<span class="kcal-pill both">${v}</span>` : '';
 }
 
 function badgesHTML(r) {
@@ -68,28 +63,23 @@ function cardHTML(r) {
 
 /* ── DRAWER RENDER ───────────────────────────────────────────── */
 function drawerKcalHTML(r) {
-  if (r.kcal.both) {
-    return `<div class="drawer-kcal-block dkb-both"><span class="dkb-name">Both</span><span class="dkb-val">${r.kcal.both}</span></div>`;
-  }
-  let html = '';
-  if (r.kcal.jon) html += `<div class="drawer-kcal-block dkb-jon"><span class="dkb-name">Jon</span><span class="dkb-val">${r.kcal.jon}</span></div>`;
-  if (r.kcal.jo)  html += `<div class="drawer-kcal-block dkb-jo"><span class="dkb-name">Jo</span><span class="dkb-val">${r.kcal.jo}</span></div>`;
-  return html;
+  const v = r.kcal && (r.kcal.both || r.kcal.jon);
+  if (!v) return '';
+  const label = r.serves ? `Serves ${r.serves}` : 'Per portion';
+  return `<div class="drawer-kcal-block dkb-both"><span class="dkb-name">${label}</span><span class="dkb-val">${v}</span></div>`;
 }
 
 function ingredientsTableHTML(r) {
-  const hasJo = r.ingredients.some(i => i.jo);
   const rows = r.ingredients.map(i => `
     <tr>
       <td class="td-name">${i.name}</td>
       <td class="td-note">${i.note || ''}</td>
-      <td class="td-jon">${i.jon || ''}</td>
-      ${hasJo ? `<td class="td-jo">${i.jo || (i.jon ? '<span class="ing-same">same</span>' : '')}</td>` : ''}
+      <td class="td-jon">${i.qty || i.jon || ''}</td>
     </tr>`).join('');
   return `
     <table class="ing-table">
       <thead><tr>
-        <td>Ingredient</td><td>Note</td><td>${hasJo ? 'Jon' : 'Qty'}</td>${hasJo ? '<td>Jo</td>' : ''}
+        <td>Ingredient</td><td>Note</td><td>Qty</td>
       </tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
