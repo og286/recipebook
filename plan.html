@@ -74,6 +74,16 @@ button{font:inherit;cursor:pointer}
 .icon:hover{background:var(--page);color:var(--ink)}
 .slot.locked .icon.lock{color:var(--sage)}
 
+.standing{display:flex;align-items:center;gap:10px;background:var(--sage-bg);
+  border:1px solid #CFE0D2;border-radius:10px;padding:11px 14px;margin-bottom:10px}
+.standing .lab{flex:none;font-size:10.5px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--sage)}
+.standing .txt{flex:1;font-size:14.5px;font-weight:500;min-width:0}
+.standing .txt small{display:block;font-weight:400;font-size:12px;color:var(--mid);margin-top:1px}
+.standing .view{flex:none;background:none;border:0;color:var(--sage);font-size:13px;
+  width:26px;height:26px;border-radius:5px}
+.standing .view:hover{background:#fff}
+
 /* summary */
 .summary{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--mid);margin-top:14px;padding-top:14px;border-top:1px solid var(--rule)}
 .summary b{color:var(--ink);font-weight:500}
@@ -189,6 +199,7 @@ input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:tra
       <span class="status" id="st"></span>
     </div>
     <div id="notes"></div>
+    <div id="standing"></div>
     <div class="slots" id="slots"></div>
     <div class="summary" id="sum"></div>
   </section>
@@ -263,7 +274,7 @@ document.querySelectorAll(".tab").forEach((t) => t.onclick = () => {
   const thisWeek = store.weekOf();
   PLAN = PLANS.find((p) => p.id === thisWeek) ?? null;
   if (PLAN) { render(); status(`Loaded plan for week of ${thisWeek}`); }
-  else status("No plan for this week yet. Hit Generate.");
+  else { renderStanding(byId()); status("No plan for this week yet. Hit Generate."); }
   renderHistory();
 })();
 
@@ -315,6 +326,7 @@ $("#save").onclick = async () => {
 function render() {
   const wrap = $("#slots"); wrap.innerHTML = "";
   const map = byId();
+  renderStanding(map);
 
   $("#notes").innerHTML = "";
   for (const n of PLAN?.notes ?? []) $("#notes").append(el("div", "note", esc(n)));
@@ -435,6 +447,32 @@ function buildPicker(i, slot) {
     status(breaks.length ? "Changed, and it bends a rule. Not saved yet." : "Changed. Not saved yet.");
   };
   return sel;
+}
+
+/**
+ * Standing items are eaten every day regardless of what the planner picks, so
+ * they are not one of the seven slots. They still need showing, or the
+ * breakfast silently vanishes from the plan even though it is on the shopping
+ * list.
+ */
+function renderStanding(map) {
+  const box = $("#standing"); box.innerHTML = "";
+  const standing = (SETTINGS.standing ?? [{ id: "smoothie", servings: 14 }])
+    .map(({ id, servings }) => ({ recipe: map.get(id), servings }))
+    .filter((x) => x.recipe);
+
+  for (const { recipe, servings } of standing) {
+    const row = el("div", "standing");
+    row.append(el("div", "lab", "Every day"));
+    const t = el("div", "txt",
+      `${esc(recipe.title)}<small>${servings} a week &middot; breakfast for you and Jo &middot; always on the shopping list</small>`);
+    row.append(t);
+    const view = el("button", "view", "&#9432;");
+    view.title = "View recipe";
+    view.onclick = () => openDrawer(recipe.id);
+    row.append(view);
+    box.append(row);
+  }
 }
 
 function renderSummary() {
