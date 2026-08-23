@@ -57,8 +57,14 @@ button{font:inherit;cursor:pointer}
 .slot-n{flex:none;width:44px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--light);border-right:1px solid var(--rule)}
 .slot-body{flex:1;padding:12px 14px;min-width:0}
 .slot-title{font-weight:500;font-size:15.5px;line-height:1.3;margin-bottom:5px}
-.slot-title button{background:none;border:0;font:inherit;font-weight:500;color:var(--ink);text-align:left;padding:0;cursor:pointer;text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px}
-.slot-title button:hover{text-decoration-color:var(--accent)}
+.slot-title{display:flex;align-items:center;gap:6px}
+.slot-title select{font:inherit;font-size:15.5px;font-weight:500;color:var(--ink);background:transparent;border:1px solid transparent;border-radius:6px;padding:2px 24px 2px 5px;margin-left:-5px;max-width:100%;cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A8A09A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 7px center;text-overflow:ellipsis}
+.slot-title select:hover{border-color:var(--rule);background-color:var(--page)}
+.slot-title select:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.slot-title .view{flex:none;background:none;border:0;color:var(--light);font-size:13px;width:22px;height:22px;border-radius:5px;line-height:1}
+.slot-title .view:hover{background:var(--page);color:var(--accent)}
 .chips{display:flex;gap:5px;flex-wrap:wrap}
 .chip{font-size:11px;font-weight:500;padding:2px 7px;border-radius:20px;background:var(--page);color:var(--mid);border:1px solid var(--rule);white-space:nowrap}
 .chip.eff-low{background:var(--sage-bg);color:var(--sage);border-color:#CFE0D2}
@@ -283,9 +289,12 @@ function render() {
 
     const body = el("div", "slot-body");
     const t = el("div", "slot-title");
-    const btn = el("button", null, esc(s.title));
-    btn.onclick = () => openDrawer(s.recipeId);
-    t.append(btn); body.append(t);
+    t.append(buildPicker(i, s));
+    const view = el("button", "view", "&#9432;");
+    view.title = "View recipe";
+    view.onclick = () => openDrawer(s.recipeId);
+    t.append(view);
+    body.append(t);
 
     const chips = el("div", "chips");
     const add = (txt, cls) => chips.append(el("span", "chip" + (cls ? " " + cls : ""), esc(txt)));
@@ -310,6 +319,82 @@ function render() {
 
   renderSummary();
   renderShopping();
+}
+
+/* ------------------------------------------------------- manual picking */
+
+/** Which rules a candidate would break, given the rest of the week. */
+function wouldBreak(recipe, slotIndex) {
+  const others = (PLAN?.slots ?? []).filter((_, j) => j !== slotIndex);
+  const warn = [];
+  const p = recipe.plan;
+
+  if (p.carb !== "none") {
+    const n = others.filter((o) => o.carb === p.carb).length;
+    if (n >= 2) warn.push(`${p.carb} would appear ${n + 1} times`);
+  }
+  const cap = p.protein === "chicken" ? 3 : 2;
+  const n = others.filter((o) => o.protein === p.protein).length;
+  if (n >= cap) warn.push(`${p.protein} would appear ${n + 1} times`);
+
+  for (const j of [slotIndex - 1, slotIndex + 1]) {
+    const nb = PLAN?.slots?.[j];
+    if (nb && j !== slotIndex && nb.cuisine && nb.cuisine !== "none" && nb.cuisine === p.cuisine) {
+      warn.push(`${p.cuisine} two nights running`);
+      break;
+    }
+  }
+  return warn;
+}
+
+function buildPicker(i, slot) {
+  const sel = el("select");
+  sel.title = "Choose a different meal";
+  const used = new Set((PLAN?.slots ?? []).map((x, j) => (j === i ? null : x.recipeId)).filter(Boolean));
+
+  const pool = RECIPES
+    .filter((r) => r.plan?.eligible && r.plan.mealTypes?.includes("dinner"))
+    .sort((a, b) => a.title.localeCompare(b.title));
+
+  // grouped by carbohydrate, since that's the rule that bites hardest
+  const CARB_LABEL = { potato:"Potato", pasta:"Pasta", rice:"Rice", bread:"Bread",
+    tortilla:"Wraps & tortillas", pulses:"Pulses", pastry:"Pastry", none:"No carb of its own" };
+  const order = ["potato","pasta","rice","bread","tortilla","pulses","pastry","none"];
+
+  for (const carb of order) {
+    const group = pool.filter((r) => r.plan.carb === carb);
+    if (!group.length) continue;
+    const og = document.createElement("optgroup");
+    og.label = CARB_LABEL[carb] ?? carb;
+    for (const r of group) {
+      const o = document.createElement("option");
+      o.value = r.id;
+      const breaks = r.id === slot.recipeId ? [] : wouldBreak(r, i);
+      o.textContent = (breaks.length ? "\u26A0 " : "") + r.title;
+      if (used.has(r.id)) { o.disabled = true; o.textContent += " — already this week"; }
+      if (r.id === slot.recipeId) o.selected = true;
+      og.append(o);
+    }
+    sel.append(og);
+  }
+
+  sel.onchange = () => {
+    const r = RECIPES.find((x) => x.id === sel.value);
+    if (!r) return;
+    const breaks = wouldBreak(r, i);
+    PLAN.slots[i] = {
+      recipeId: r.id, title: r.title, carb: r.plan.carb, protein: r.plan.protein,
+      effort: r.plan.effort, cuisine: r.plan.cuisine,
+      locked: true,            // a deliberate choice shouldn't vanish on regenerate
+      cooked: PLAN.slots[i]?.cooked ?? null,
+      manual: true,
+    };
+    PLAN.notes = (PLAN.notes ?? []).filter((n) => !n.startsWith("You chose"));
+    if (breaks.length) PLAN.notes.push(`You chose ${r.title} — ${breaks.join(", ")}.`);
+    render();
+    status(breaks.length ? "Changed, and it bends a rule. Not saved yet." : "Changed. Not saved yet.");
+  };
+  return sel;
 }
 
 function renderSummary() {
