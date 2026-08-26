@@ -54,7 +54,21 @@ button{font:inherit;cursor:pointer}
 .slot:hover{border-color:var(--light)}
 .slot.locked{border-color:var(--sage);background:var(--sage-bg)}
 .slot-colour{width:5px;flex:none;background:var(--accent)}
-.slot-n{flex:none;width:44px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--light);border-right:1px solid var(--rule)}
+.slot-n{flex:none;width:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1px;border-right:1px solid var(--rule);cursor:grab;user-select:none;
+  /* without this the browser claims the gesture as a scroll and we never
+     receive pointermove — this single line is what makes touch dragging work */
+  touch-action:none;-webkit-user-select:none}
+.slot-n:active{cursor:grabbing}
+.slot-n .d{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mid)}
+.slot-n .dt{font-size:10px;color:var(--light)}
+.slot-n .grip{font-size:10px;color:var(--rule);letter-spacing:1px;line-height:1}
+.slot-n:hover .grip{color:var(--light)}
+.slot.dragging{opacity:.92;z-index:5;position:relative;box-shadow:0 8px 20px rgba(28,25,23,.18)}
+.slot.shifted{transition:transform .12s ease}
+.slot.over{border-color:var(--accent);box-shadow:0 -2px 0 var(--accent)}
+.slot.empty{background:repeating-linear-gradient(45deg,var(--page),var(--page) 6px,#F3EEE6 6px,#F3EEE6 12px)}
+.slot.empty .slot-title select{color:var(--light);font-style:italic}
 .slot-body{flex:1;padding:12px 14px;min-width:0}
 .slot-title{font-weight:500;font-size:15.5px;line-height:1.3;margin-bottom:5px}
 .slot-title{display:flex;align-items:center;gap:6px}
@@ -83,6 +97,8 @@ button{font:inherit;cursor:pointer}
 .standing .view{flex:none;background:none;border:0;color:var(--sage);font-size:13px;
   width:26px;height:26px;border-radius:5px}
 .standing .view:hover{background:#fff}
+
+.draghint{font-size:12px;color:var(--light);margin:0 0 8px 2px}
 
 /* summary */
 .summary{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--mid);margin-top:14px;padding-top:14px;border-top:1px solid var(--rule)}
@@ -170,8 +186,13 @@ input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:tra
 }
 
 @media(max-width:560px){
-  .slot-n{width:34px}
+  /* keep the handle a comfortable finger target, but drop the date */
+  .slot-n{width:52px}
+  .slot-n .dt{display:none}
+  .slot-n .grip{font-size:12px}
   .slot-body{padding:10px 11px}
+  .slot-title select{font-size:15px}
+  .icon{width:36px;height:36px}
   .sub{text-align:left}
 }
 </style>
@@ -200,6 +221,7 @@ input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:tra
     </div>
     <div id="notes"></div>
     <div id="standing"></div>
+    <div class="draghint">Drag a day by its label to move that meal. Choose &ldquo;No meal&rdquo; to leave an evening free.</div>
     <div class="slots" id="slots"></div>
     <div class="summary" id="sum"></div>
   </section>
@@ -247,6 +269,26 @@ import * as store from "./store.js";
 
 const $ = (s) => document.querySelector(s);
 const el = (t, c, h) => { const n = document.createElement(t); if (c) n.className = c; if (h != null) n.innerHTML = h; return n; };
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+/** Day label for slot i, counting from the Monday the plan starts on. */
+function dayFor(i) {
+  const base = PLAN?.weekOf ? new Date(PLAN.weekOf + "T00:00:00") : new Date();
+  const d = new Date(base);
+  d.setDate(d.getDate() + i);
+  return { name: DAYS[i % 7], date: d.getDate() + " " + d.toLocaleString("en-GB", { month: "short" }) };
+}
+
+const NO_MEAL = "__none__";
+const isEmpty = (slot) => !slot?.recipeId;
+
+/** Keep user-chosen empty evenings after a regenerate or swap. */
+function applyEmpties(newSlots, oldSlots) {
+  return newSlots.map((s, i) =>
+    isEmpty(oldSlots?.[i]) && oldSlots[i]?.locked
+      ? { ...oldSlots[i] }
+      : s);
+}
+
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;" }[c]));
 
 let RECIPES = [], RULES = null, PLANS = [], PLAN = null, SETTINGS = { familyKcal: 2500 };
@@ -283,7 +325,8 @@ const status = (m, err) => { const n = $("#st"); n.textContent = m; n.className 
 /* --------------------------------------------------------- generate */
 $("#gen").onclick = () => {
   const locked = {};
-  (PLAN?.slots ?? []).forEach((s, i) => { if (s.locked) locked[i] = s.recipeId; });
+  (PLAN?.slots ?? []).forEach((s, i) => { if (s.locked && !isEmpty(s)) locked[i] = s.recipeId; });
+  const previous = PLAN?.slots ? [...PLAN.slots] : null;
   const history = store.historyFromPlans(PLANS.filter((p) => p.id !== store.weekOf()));
   const seed = Math.floor(Math.random() * 2 ** 31);
   const res = planWeek(RECIPES, { mealType: "dinner", slots: 7, history, locked, seed });
@@ -293,7 +336,7 @@ $("#gen").onclick = () => {
     id: store.weekOf(), weekOf: store.weekOf(), seed,
     createdAt: PLAN?.createdAt ?? new Date().toISOString(),
     revision: PLAN?.revision ?? 0,
-    slots: res.slots.map((s) => ({ ...s, cooked: null })),
+    slots: applyEmpties(res.slots.map((s) => ({ ...s, cooked: null })), previous),
     relaxed: res.relaxed, notes: res.notes,
     shopping: PLAN?.shopping ?? { checked: [] },
   };
@@ -333,38 +376,55 @@ function render() {
 
   (PLAN?.slots ?? []).forEach((s, i) => {
     const r = map.get(s.recipeId);
-    const row = el("div", "slot" + (s.locked ? " locked" : ""));
+    const blank = isEmpty(s);
+    const row = el("div", "slot" + (s.locked ? " locked" : "") + (blank ? " empty" : ""));
+    row.dataset.i = i;
+
     const bar = el("div", "slot-colour");
-    bar.style.background = r?.colour ?? "var(--accent)";
+    bar.style.background = blank ? "var(--rule)" : (r?.colour ?? "var(--accent)");
     row.append(bar);
-    row.append(el("div", "slot-n", String(i + 1)));
+
+    // day label doubles as the drag handle
+    const day = dayFor(i);
+    const n = el("div", "slot-n",
+      `<span class="d">${day.name}</span><span class="dt">${day.date}</span><span class="grip">&#8942;&#8942;</span>`);
+    n.title = "Drag to move this meal to another day";
+    n.addEventListener("pointerdown", (e) => beginDrag(e, i, row, n));
+    row.append(n);
 
     const body = el("div", "slot-body");
     const t = el("div", "slot-title");
     t.append(buildPicker(i, s));
-    const view = el("button", "view", "&#9432;");
-    view.title = "View recipe";
-    view.onclick = () => openDrawer(s.recipeId);
-    t.append(view);
+    if (!blank) {
+      const view = el("button", "view", "&#9432;");
+      view.title = "View recipe";
+      view.onclick = () => openDrawer(s.recipeId);
+      t.append(view);
+    }
     body.append(t);
 
-    const chips = el("div", "chips");
-    const add = (txt, cls) => chips.append(el("span", "chip" + (cls ? " " + cls : ""), esc(txt)));
-    add(s.effort, "eff-" + s.effort);
-    if (s.carb !== "none") add(s.carb);
-    add(s.protein);
-    if (r?.plan?.activeMins) add(r.plan.activeMins + " min");
-    body.append(chips);
+    if (!blank) {
+      const chips = el("div", "chips");
+      const add = (txt, cls) => chips.append(el("span", "chip" + (cls ? " " + cls : ""), esc(txt)));
+      add(s.effort, "eff-" + s.effort);
+      if (s.carb !== "none") add(s.carb);
+      add(s.protein);
+      if (r?.plan?.activeMins) add(r.plan.activeMins + " min");
+      body.append(chips);
+    }
     row.append(body);
 
     const acts = el("div", "slot-actions");
     const lock = el("button", "icon lock", s.locked ? "&#128274;" : "&#128275;");
     lock.title = s.locked ? "Unlock" : "Lock this meal";
     lock.onclick = () => { s.locked = !s.locked; render(); };
-    const sw = el("button", "icon", "&#8635;");
-    sw.title = "Swap for something else";
-    sw.onclick = () => doSwap(i);
-    acts.append(lock, sw);
+    acts.append(lock);
+    if (!blank) {
+      const sw = el("button", "icon", "&#8635;");
+      sw.title = "Swap for something else";
+      sw.onclick = () => doSwap(i);
+      acts.append(sw);
+    }
     row.append(acts);
     wrap.append(row);
   });
@@ -377,7 +437,7 @@ function render() {
 
 /** Which rules a candidate would break, given the rest of the week. */
 function wouldBreak(recipe, slotIndex) {
-  const others = (PLAN?.slots ?? []).filter((_, j) => j !== slotIndex);
+  const others = (PLAN?.slots ?? []).filter((o, j) => j !== slotIndex && !isEmpty(o));
   const warn = [];
   const p = recipe.plan;
 
@@ -391,7 +451,7 @@ function wouldBreak(recipe, slotIndex) {
 
   for (const j of [slotIndex - 1, slotIndex + 1]) {
     const nb = PLAN?.slots?.[j];
-    if (nb && j !== slotIndex && nb.cuisine && nb.cuisine !== "none" && nb.cuisine === p.cuisine) {
+    if (nb && !isEmpty(nb) && j !== slotIndex && nb.cuisine && nb.cuisine !== "none" && nb.cuisine === p.cuisine) {
       warn.push(`${p.cuisine} two nights running`);
       break;
     }
@@ -402,6 +462,12 @@ function wouldBreak(recipe, slotIndex) {
 function buildPicker(i, slot) {
   const sel = el("select");
   sel.title = "Choose a different meal";
+
+  const none = document.createElement("option");
+  none.value = NO_MEAL;
+  none.textContent = "— No meal —";
+  if (isEmpty(slot)) none.selected = true;
+  sel.append(none);
   const used = new Set((PLAN?.slots ?? []).map((x, j) => (j === i ? null : x.recipeId)).filter(Boolean));
 
   const pool = RECIPES
@@ -431,6 +497,15 @@ function buildPicker(i, slot) {
   }
 
   sel.onchange = () => {
+    if (sel.value === NO_MEAL) {
+      PLAN.slots[i] = {
+        recipeId: null, title: "No meal", carb: null, protein: null,
+        effort: null, cuisine: null, locked: true, cooked: null, manual: true,
+      };
+      PLAN.notes = (PLAN.notes ?? []).filter((n) => !n.startsWith("You chose"));
+      render();
+      return status(`${dayFor(i).name} left free. Not saved yet.`);
+    }
     const r = RECIPES.find((x) => x.id === sel.value);
     if (!r) return;
     const breaks = wouldBreak(r, i);
@@ -476,22 +551,97 @@ function renderStanding(map) {
 }
 
 function renderSummary() {
-  const s = PLAN?.slots ?? [];
+  const s = (PLAN?.slots ?? []).filter((x) => !isEmpty(x));
   if (!s.length) { $("#sum").innerHTML = ""; return; }
   const count = (k) => s.reduce((a, x) => ((a[x[k]] = (a[x[k]] ?? 0) + 1), a), {});
   const fmt = (o) => Object.entries(o).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k} ${v}`).join(", ");
+  const free = (PLAN?.slots ?? []).filter(isEmpty).length;
   $("#sum").innerHTML =
+    (free ? `<span><b>${free}</b> ${free === 1 ? "evening" : "evenings"} free</span>` : "") +
     `<span><b>Carbs</b> ${esc(fmt(count("carb")))}</span>` +
     `<span><b>Protein</b> ${esc(fmt(count("protein")))}</span>` +
     `<span><b>Effort</b> ${esc(fmt(count("effort")))}</span>`;
+}
+
+/* ------------------------------------------------------- dragging days
+ * Pointer Events rather than HTML5 drag-and-drop: the HTML5 API has no touch
+ * implementation at all, so it is dead on a phone. Pointer Events cover mouse,
+ * touch and stylus through one code path.
+ */
+let drag = null;
+
+function beginDrag(e, index, row, handle) {
+  if (e.button > 0) return;                 // ignore right/middle click
+  e.preventDefault();
+  handle.setPointerCapture?.(e.pointerId);
+  drag = { from: index, to: index, startY: e.clientY, row, handle, pointerId: e.pointerId, moved: false };
+  row.classList.add("dragging");
+  handle.addEventListener("pointermove", onDragMove);
+  handle.addEventListener("pointerup", endDrag);
+  handle.addEventListener("pointercancel", endDrag);
+}
+
+function onDragMove(e) {
+  if (!drag) return;
+  e.preventDefault();
+  const dy = e.clientY - drag.startY;
+  if (Math.abs(dy) > 3) drag.moved = true;
+  drag.row.style.transform = `translateY(${dy}px)`;
+
+  // keep the page moving when dragging past the top or bottom edge
+  const pad = 90;
+  if (e.clientY < pad) window.scrollBy(0, -10);
+  else if (e.clientY > window.innerHeight - pad) window.scrollBy(0, 10);
+
+  // which day is the pointer currently over?
+  const rows = [...$("#slots").children];
+  let to = drag.from;
+  for (let j = 0; j < rows.length; j++) {
+    if (j === drag.from) continue;
+    const r = rows[j].getBoundingClientRect();
+    if (e.clientY > r.top && e.clientY < r.bottom) { to = j; break; }
+    if (j === 0 && e.clientY <= r.top) to = 0;
+    if (j === rows.length - 1 && e.clientY >= r.bottom) to = rows.length - 1;
+  }
+  if (to !== drag.to) {
+    rows.forEach((r) => r.classList.remove("over"));
+    if (to !== drag.from) rows[to]?.classList.add("over");
+    drag.to = to;
+  }
+}
+
+function endDrag(e) {
+  if (!drag) return;
+  const { from, to, row, handle, moved } = drag;
+  handle.releasePointerCapture?.(drag.pointerId);
+  handle.removeEventListener("pointermove", onDragMove);
+  handle.removeEventListener("pointerup", endDrag);
+  handle.removeEventListener("pointercancel", endDrag);
+  row.style.transform = "";
+  row.classList.remove("dragging");
+  [...$("#slots").children].forEach((r) => r.classList.remove("over"));
+  drag = null;
+  if (moved && from !== to) moveSlot(from, to);
+}
+
+/** Move a meal from one day to another, shifting the days in between. */
+function moveSlot(from, to) {
+  const arr = PLAN.slots;
+  const [moved] = arr.splice(from, 1);
+  arr.splice(to, 0, moved);
+  render();
+  status(`Moved ${moved.title || "empty evening"} to ${dayFor(to).name}. Not saved yet.`);
 }
 
 function doSwap(i) {
   const history = store.historyFromPlans(PLANS.filter((p) => p.id !== store.weekOf()));
   const res = swapSlot(RECIPES, PLAN.slots, i, { history, seed: Math.floor(Math.random() * 2 ** 31) });
   if (!res.slots.length) return status("No alternative fits the rules for that slot.", true);
+  const previous = [...PLAN.slots];
   const keepLocks = PLAN.slots.map((s) => s.locked);
-  PLAN.slots = res.slots.map((s, j) => ({ ...s, locked: keepLocks[j] ?? false, cooked: PLAN.slots[j]?.cooked ?? null }));
+  PLAN.slots = applyEmpties(
+    res.slots.map((s, j) => ({ ...s, locked: keepLocks[j] ?? false, cooked: previous[j]?.cooked ?? null })),
+    previous);
   PLAN.notes = res.notes;
   render();
   status("Swapped. Not saved yet.");
@@ -567,7 +717,10 @@ function buildSheet() {
   const groups = groupByAisle(list, RULES);
 
   const inner = $("#sheet-inner");
-  const meals = [...chosen.map((r) => r.title), ...standing.map((x) => `${x.recipe.title} ×${x.servings}`)];
+  const meals = [
+    ...PLAN.slots.map((sl, i) => isEmpty(sl) ? null : `${dayFor(i).name}: ${sl.title}`).filter(Boolean),
+    ...standing.map((x) => `${x.recipe.title} ×${x.servings}`),
+  ];
 
   const render = (blanks, fontPx) => {
     inner.style.fontSize = fontPx + "px";
@@ -639,7 +792,9 @@ function renderHistory() {
     h.append(el("div", "wk-d", "Week of " + esc(p.weekOf)));
     h.append(el("div", "wk-m", esc((p.slots ?? []).length + " meals" + (p.relaxed?.length ? " · rules relaxed" : ""))));
     w.append(h);
-    w.append(el("div", "wk-l", (p.slots ?? []).map((s) => esc(s.title)).join(" &middot; ")));
+    w.append(el("div", "wk-l", (p.slots ?? [])
+      .map((s, i) => `${DAYS[i % 7]} ${esc(s.recipeId ? s.title : "—")}`)
+      .join(" &middot; ")));
     box.append(w);
   }
 }

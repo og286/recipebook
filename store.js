@@ -125,6 +125,8 @@ export function historyFromPlans(plans) {
   const out = [];
   for (const p of plans) {
     for (const s of p.slots ?? []) {
+      // an evening with no meal is not a use of anything
+      if (!s.recipeId) continue;
       out.push({ recipeId: s.recipeId, date: p.weekOf, cooked: s.cooked !== null && s.cooked !== undefined });
     }
   }
