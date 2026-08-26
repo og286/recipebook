@@ -283,10 +283,12 @@ const isEmpty = (slot) => !slot?.recipeId;
 
 /** Keep user-chosen empty evenings after a regenerate or swap. */
 function applyEmpties(newSlots, oldSlots) {
-  return newSlots.map((s, i) =>
-    isEmpty(oldSlots?.[i]) && oldSlots[i]?.locked
-      ? { ...oldSlots[i] }
-      : s);
+  if (!oldSlots) return newSlots;          // first plan of the week: nothing to keep
+  return newSlots.map((s, i) => {
+    const old = oldSlots[i];
+    // isEmpty() is true for a missing slot too, so check the slot exists first
+    return old && isEmpty(old) && old.locked ? { ...old } : s;
+  });
 }
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;" }[c]));
