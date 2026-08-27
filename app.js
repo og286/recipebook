@@ -28,6 +28,68 @@ function recipesFor(catId) {
   return catId === 'all' ? recipes : recipes.filter(r => r.category === catId);
 }
 
+/* ── SEARCH ──────────────────────────────────────────────────── */
+let query = '';
+
+/** Everything worth matching on, lowercased once per recipe. */
+function haystack(r) {
+  if (!r._hay) {
+    r._hay = [
+      r.title, r.desc, r.subtitle, r.category,
+      r.plan && r.plan.carb, r.plan && r.plan.protein, r.plan && r.plan.cuisine,
+      ...(r.ingredients || []).map(i => i.name),
+      ...(r.badgeLabels || []),
+    ].filter(Boolean).join(' ').toLowerCase();
+  }
+  return r._hay;
+}
+
+/** Every word must appear somewhere, so "chicken rice" narrows rather than widens. */
+function searchRecipes(q) {
+  const words = q.toLowerCase().split(/\s+/).filter(Boolean);
+  if (!words.length) return [];
+  return recipes.filter(r => {
+    const hay = haystack(r);
+    return words.every(w => hay.includes(w));
+  });
+}
+
+function renderSearch() {
+  const pages = document.getElementById('pages');
+  const results = searchRecipes(query);
+  document.querySelector('.tabs-wrap').style.display = 'none';
+  pages.innerHTML = `
+    <div class="page active">
+      <div class="page-header">
+        <div class="page-eyebrow">Search</div>
+        <div class="page-title">${results.length} result${results.length === 1 ? '' : 's'} for &ldquo;${escapeHTML(query)}&rdquo;</div>
+      </div>
+      ${results.length
+        ? `<div class="recipe-grid">${results.map(cardHTML).join('')}</div>`
+        : `<div class="no-results">Nothing matched. Try a single ingredient, like <em>chicken</em> or <em>lentils</em>.</div>`}
+    </div>`;
+}
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+}
+
+function applySearch(value) {
+  query = value.trim();
+  document.getElementById('search-clear').hidden = !query;
+  if (query) {
+    renderSearch();
+  } else {
+    document.querySelector('.tabs-wrap').style.display = '';
+    renderPages();
+    const active = document.querySelector('.tab-btn.active');
+    const cat = active ? active.dataset.cat : 'all';
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const page = document.getElementById(`page-${cat}`);
+    if (page) page.classList.add('active');
+  }
+}
+
 /* ── CARD RENDER ─────────────────────────────────────────────── */
 function kcalPillsHTML(r) {
   const v = r.kcal && (r.kcal.both || r.kcal.jon);
@@ -92,10 +154,40 @@ function drawerHeadingHTML(r) {
     <div class="drawer-title">${r.title}</div>`;
 }
 
+/**
+ * How to serve a 500 kcal portion. Three shapes of dish need three different
+ * instructions: a starch cooked alongside a main needs a weight for each part,
+ * a homogeneous dish needs one weight, and a burger needs a count.
+ */
+function portionHTML(r) {
+  const whole = r.totalKcal
+    ? `Whole dish is about ${r.totalKcal.toLocaleString()} kcal.` : '';
+
+  if (r.plate500 && r.plate500.parts && r.plate500.parts.length) {
+    const parts = r.plate500.parts
+      .map(p => `<strong>${p.g}g</strong> ${p.label} <span style="color:var(--mid)">(${p.kcal} kcal)</span>`)
+      .join(' &nbsp;+&nbsp; ');
+    return `<div class="portion-box"><div class="pb-title">A 500 kcal plate</div>${parts}
+      <div class="pb-sub">${whole}</div></div>`;
+  }
+  if (r.serveBy === 'weight' && r.gramsPer500kcal) {
+    return `<div class="portion-box"><div class="pb-title">500 kcal portion</div>
+      <strong>${r.gramsPer500kcal}g</strong>${r.kcalPer100g ? ` &middot; about ${r.kcalPer100g} kcal per 100g` : ''}
+      <div class="pb-sub">${whole}</div></div>`;
+  }
+  if (r.portionLabel) {
+    return `<div class="portion-box"><div class="pb-title">500 kcal portion</div>
+      Roughly <strong>${r.portionLabel}</strong>
+      <div class="pb-sub">Served by the piece, so there is no useful weight. ${whole}</div></div>`;
+  }
+  return '';
+}
+
 function drawerContentHTML(r) {
   return `
     <div class="drawer-desc">${r.desc}</div>
     <div class="drawer-kcal">${drawerKcalHTML(r)}</div>
+    ${portionHTML(r)}
     <div class="drawer-section-title">Ingredients</div>
     ${ingredientsTableHTML(r)}
     <div class="drawer-section-title">Method</div>
@@ -157,6 +249,17 @@ function attachEvents() {
     const card = e.target.closest('.recipe-card');
     if (!card) return;
     openDrawer(card.dataset.id);
+  });
+
+  const search = document.getElementById('search');
+  search.addEventListener('input', () => applySearch(search.value));
+  document.getElementById('search-clear').addEventListener('click', () => {
+    search.value = '';
+    applySearch('');
+    search.focus();
+  });
+  search.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { search.value = ''; applySearch(''); }
   });
 
   document.querySelector('.drawer-close').addEventListener('click', closeDrawer);

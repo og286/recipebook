@@ -454,3 +454,83 @@ body {
   transition: background .15s, color .15s;
 }
 .plan-link:hover { background: var(--accent); color: #fff; }
+
+/* ── SEARCH ───────────────────────────────────────────────────── */
+.search-wrap {
+  max-width: 900px;
+  margin: 20px auto 0;
+  padding: 0 24px;
+  position: relative;
+}
+.search-wrap input {
+  width: 100%;
+  font: inherit;
+  font-size: 15px;
+  padding: 11px 38px 11px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 9px;
+  background: var(--card-bg);
+  color: var(--ink);
+  -webkit-appearance: none;
+}
+.search-wrap input::placeholder { color: var(--light); }
+.search-wrap input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+  border-color: transparent;
+}
+.search-wrap input::-webkit-search-cancel-button { display: none; }
+#search-clear {
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: 0;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--light);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 5px;
+}
+#search-clear:hover { color: var(--ink); background: var(--page); }
+.search-count {
+  max-width: 900px;
+  margin: 8px auto 0;
+  padding: 0 24px;
+  font-size: 13px;
+  color: var(--mid);
+}
+.no-results {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 24px;
+  color: var(--mid);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── PORTION BLOCK IN THE DRAWER ──────────────────────────────── */
+.portion-box {
+  background: var(--sage-bg);
+  border-radius: 8px;
+  padding: 12px 15px;
+  margin: 14px 0 4px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.portion-box .pb-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 4px;
+}
+.portion-box .pb-sub {
+  font-size: 12.5px;
+  color: var(--mid);
+  margin-top: 5px;
+}
+.portion-box strong { font-weight: 700; }
